@@ -1,5 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "./bootstrap-grid.min.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 :root {
   --green:#0B987E;
   --darkGreen: #05705A;
+  --lightGreen:#06B995;
+  --red:#ef233c;
+}
+
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body{
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }

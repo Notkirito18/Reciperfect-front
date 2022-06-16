@@ -1,0 +1,89 @@
+.section-container {
+  padding-top: 50px;
+
+  .logo {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .title {
+    font-size: 33px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    text-align: center;
+
+    span {
+      color: var(--green);
+      cursor: pointer;
+    }
+
+    span:hover {
+      color: var(--darkGreen);
+      text-decoration: underline;
+    }
+  }
+
+  .form-container {
+    padding: 15px;
+
+    input,
+    .submit-btn {
+      display: block;
+      padding: 11px 24px;
+      border-radius: 3px;
+      margin: auto;
+      width: 80%;
+      background-color: rgb(240, 240, 240);
+      border: 2px solid rgba(255, 255, 255, 0);
+    }
+
+    .field {
+      position: relative;
+      margin-bottom: 25px;
+
+      input:focus {
+        outline: none;
+        border: 2px solid var(--green);
+      }
+
+      input.ng-touched.ng-invalid {
+        border: 2px solid var(--red) !important;
+      }
+
+      .input-invalid {
+        font-size: 12px;
+        color: var(--red);
+        position: absolute;
+        left: 15%;
+        bottom: -30px;
+      }
+    }
+
+    .submit-btn {
+      background-color: var(--green);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--lightGreen);
+    }
+
+    .submit-btn:disabled,
+    .submit-btn[disabled] {
+      opacity: 0.5;
+      cursor: unset;
+    }
+
+    .submit-btn:disabled:hover,
+    .submit-btn[disabled]:hover {
+      background-color: var(--green);
+    }
+  }
+}

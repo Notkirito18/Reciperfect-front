@@ -1,1 +1,53 @@
-<p>login works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 section-container">
+      <div class="logo">logo</div>
+      <div class="title">Welcome back to Reciperfect</div>
+      <div class="subtitle">
+        you don't have an account?
+        <span [routerLink]="'/register'">Register</span>
+      </div>
+
+      <div class="form-container">
+        <form
+          [formGroup]="loginForm"
+          #formDirective="ngForm"
+          (submit)="onFormSubmit(loginForm.value, formDirective)"
+        >
+          <!--*email field  -->
+          <div class="field">
+            <input
+              class="email"
+              formControlName="email"
+              type="email"
+              placeholder="Email"
+            />
+            <p class="input-invalid" *ngIf="validInput('email', loginForm)">
+              you must enter a valid email
+            </p>
+          </div>
+          <!--*password field  -->
+          <div class="field">
+            <input
+              class="password"
+              formControlName="password"
+              min="8"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          <button
+            class="submit-btn"
+            type="submit"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <img src="../../../assets/bg.jpg" alt="" />
+    </div>
+  </div>
+</div>

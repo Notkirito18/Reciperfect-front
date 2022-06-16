@@ -1,0 +1,15 @@
+::ng-deep snack-bar-container.error {
+  min-width: 0 !important;
+  background-color: var(--red);
+  color: #fff;
+}
+
+::ng-deep snack-bar-container.notError {
+  min-width: 0 !important;
+  background-color: var(--lightGreen);
+  color: #fff;
+}
+
+::ng-deep mat-icon {
+  margin-right: 8px !important;
+}

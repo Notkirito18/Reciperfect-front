@@ -1,11 +1,22 @@
-<div class="container">
-  <div class="header"></div>
-  <section class="landing">
-    <div class="title-text">Find all the best recipes in one place</div>
-    <div class="search">
-      <input type="text" />
-      <div class="filter"></div>
+<app-header></app-header>
+<section class="landing">
+  <div class="container flex-center">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1 class="title-text">
+        Find the best recipes from around the world, and share your own recipe
+        all in one place
+      </h1>
+      <div class="search" [ngClass]="searchClass(scrolled, screenSize)">
+        <form>
+          <input type="text" placeholder="Search for recipes" />
+          <button class="filter-btn" type="button">filter</button>
+          <button class="search-btn" type="button">search</button>
+        </form>
+      </div>
     </div>
-  </section>
-  <section class="recipes-display"></section>
-</div>
+  </div>
+</section>
+<section class="recipes-display">
+  <div class="test"></div>
+</section>

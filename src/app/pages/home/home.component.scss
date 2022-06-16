@@ -1,0 +1,86 @@
+// .header{
+//   position: absolute;
+//   top: 0px;
+//   padding: 15px 10%;
+//   z-index: 2;
+//   width: 100%;
+// }
+.landing{
+  position: relative;
+  background: url(../../../assets/bg2.jpg);
+  background-size: cover;
+  .container{
+    padding-top: 80px;
+    padding-bottom: 150px;
+    flex-direction: column;
+    .overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 1;
+    }
+    .content{
+      padding-top: 50px;
+      width: 75%;
+      z-index: 2;
+      .title-text{
+        font-weight: 600;
+        font-size: 33px;
+        line-height: 40px;
+        letter-spacing: -.02em;
+        color: #fff
+      }
+      .search{
+        position: relative;
+        form{
+          input{
+            width: 100%;
+            color: #7f7f7f;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            font-size: 16px;
+          }
+          input:focus {
+            outline: none;
+          }
+          .filter-btn,.search-btn{
+            border: none;
+            height: 100%;
+            width: 50px;
+            position: absolute;
+            background-color: #fff;
+            cursor: pointer;
+          }
+          .search-btn{
+            right: 5px;
+          }
+          .filter-btn{
+            right: 55px;
+          }
+        }
+      }
+      .stick-search-lg{
+        position: fixed;
+        width: 40%;
+        top: 15px;
+      }
+      .stick-search-sm {
+        position: fixed;
+        width: 100%;
+        top: 80px;
+        left: 0;
+      }
+    }
+  }
+}
+
+
+.recipes-display{
+  height: 8000px;
+  background-color: aquamarine;
+}
