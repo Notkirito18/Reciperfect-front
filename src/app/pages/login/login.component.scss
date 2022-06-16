@@ -1,4 +1,4 @@
-.section-container {
+.form-side {
   padding-top: 50px;
 
   .logo {
@@ -84,6 +84,60 @@
     .submit-btn:disabled:hover,
     .submit-btn[disabled]:hover {
       background-color: var(--green);
+    }
+  }
+}
+.gallery-side-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .gallery-side {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 3px 3px;
+    grid-template-areas:
+      "a b"
+      "a b"
+      "a d"
+      "c d"
+      "c d"
+      "c e"
+      "f e"
+      "f e";
+    height: 95%;
+
+    img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    .a {
+      grid-area: a;
+    }
+
+    .b {
+      grid-area: b;
+    }
+
+    .c {
+      grid-area: c;
+    }
+
+    .d {
+      grid-area: d;
+    }
+
+    .e {
+      grid-area: e;
+    }
+
+    .f {
+      grid-area: f;
     }
   }
 }

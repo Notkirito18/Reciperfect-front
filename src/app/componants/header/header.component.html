@@ -1,6 +1,6 @@
 <header class="header" [ngClass]="scrolled ? 'header-scroll' : ''">
   <div class="row">
-    <div class="col-md-2 col-6">
+    <div class="col-md-2 col-3">
       <div class="logo">Logo</div>
     </div>
     <!--*links large view  -->
@@ -18,7 +18,13 @@
         [ngClass]="scrolled ? 'link-scroll' : ''"
         >Explore</span
       >
-      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''">Upload</span>
+      <span
+        *ngIf="!loggedIn"
+        class="link"
+        [routerLink]="'/login'"
+        [ngClass]="scrolled ? 'link-scroll' : ''"
+        >Login</span
+      >
       <button
         [routerLink]="'/register'"
         class="join-btn"
@@ -34,16 +40,22 @@
         [ngClass]="scrolled ? 'link-scroll' : ''"
         >My Space</span
       >
+      <span
+        *ngIf="loggedIn"
+        class="link"
+        [ngClass]="scrolled ? 'link-scroll' : ''"
+        >Upload</span
+      >
       <div
         *ngIf="loggedIn"
-        [matMenuTriggerFor]="menu"
+        [matMenuTriggerFor]="lgmenu"
         class="profile-pic"
         [ngClass]="scrolled ? 'profile-pic-scroll' : ''"
       >
         <img src="../../../assets/bg2.jpg" alt="profile-pic" />
         <span class="small-arrow"></span>
       </div>
-      <mat-menu #menu="matMenu" xPosition="before">
+      <mat-menu #lgmenu="matMenu" xPosition="before">
         <button mat-menu-item class="mat-menu-item">
           <mat-icon>manage_accounts</mat-icon>
           <span> Edit Profile </span>
@@ -58,8 +70,63 @@
   <!--*links small view  -->
 
   <ng-template #smallLinks>
-    <div class="col-md-4 col-6 offset-md-6 sm-links-btn-container">
-      <button class="sm-links-btn">links</button>
+    <!--*Links area when not logged in  -->
+    <div *ngIf="!loggedIn" class="col-3 sm-link-container">
+      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''"
+        >Explore</span
+      >
     </div>
+    <div *ngIf="!loggedIn" class="col-3 sm-link-container">
+      <span
+        class="link"
+        [ngClass]="scrolled ? 'link-scroll' : ''"
+        [routerLink]="'/login'"
+        >Login</span
+      >
+    </div>
+    <div
+      *ngIf="!loggedIn"
+      class="col-3 sm-link-container"
+      [routerLink]="'/register'"
+    >
+      <span class="join-btn" [ngClass]="scrolled ? 'btn-scroll' : ''"
+        >Join</span
+      >
+    </div>
+    <!--*Links area when logged in  -->
+    <div *ngIf="loggedIn" class="col-3 sm-link-container">
+      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''"
+        >My Space</span
+      >
+    </div>
+    <div *ngIf="loggedIn" class="col-3 sm-link-container">
+      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''">Upload</span>
+    </div>
+    <div
+      [matMenuTriggerFor]="smmenu"
+      *ngIf="loggedIn"
+      class="col-3 sm-link-container"
+      style="justify-content: 'right'"
+    >
+      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''"
+        ><mat-icon>menu</mat-icon></span
+      >
+    </div>
+    <mat-menu #smmenu="matMenu" xPosition="before">
+      <div mat-menu-item disabled class="mat-menu-item">
+        <div class="sm-profile-pic">
+          <img src="../../../assets/bg.jpg" alt="" />
+          <span> Username </span>
+        </div>
+      </div>
+      <button mat-menu-item class="mat-menu-item">
+        <mat-icon>manage_accounts</mat-icon>
+        <span> Edit Profile </span>
+      </button>
+      <button mat-menu-item class="mat-menu-item" (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+        <span> Logout </span>
+      </button>
+    </mat-menu>
   </ng-template>
 </header>

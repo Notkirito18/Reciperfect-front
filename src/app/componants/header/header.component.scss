@@ -11,70 +11,11 @@
     padding: 15px;
     color: red;
   }
-  //* Links area
-  .links-container{
-    display: flex;
-    justify-content: right;
-    gap: 20px;
-    align-items: center;
-    .link{
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-    }
-    .join-btn {
-      background-color: #fff;
-      border: none;
-      padding: 15px 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .join-btn:hover {
-      background-color: rgb(220, 220, 220);
-    }
 
-    //* Scroll style change
-    .link-scroll{
-      color: var(--green);
-    }
-    .btn-scroll {
-      background-color: var(--green);
-      color: #fff;
-    }
-    .btn-scroll:hover {
-      background-color: var(--darkGreen);
-    }
-    //* Profile pick
-    .profile-pic{
-      width: 40px;
-      height: 40px;
-      outline: 2px solid white;
-      outline-offset: 1px;
-      border-radius: 50%;
-      cursor: pointer;
-      img{
-        border-radius: 50%;
-        width: 100%;
-        height: 100%;
-        object-fit: fill;
-      }
-    }
-    .profile-pic:hover {
-      outline: 2px solid var(--green);
-    }
-    .profile-pic-scroll{
-      outline: 2px solid var(--green);
-    }
-    .profile-pic-scroll:hover {
-      outline: 2px solid var(--lightGreen);
-    }
-  }
   //* small screen view
-  .sm-links-btn-container{
+  .sm-link-container{
     display: flex;
-    justify-content: right;
+    justify-content: center;
     align-items: center;
     .sm-links-btn{
       background-color: red;
@@ -82,13 +23,107 @@
     }
   }
 }
+//* Links area
+.links-container {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+  align-items: center;
+}
 
+.link {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+}
+
+.join-btn {
+  background-color: #fff;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.join-btn:hover {
+  background-color: rgb(220, 220, 220);
+}
+
+//* Scroll style change
+.link-scroll {
+  color: var(--green);
+}
+
+.btn-scroll {
+  background-color: var(--green);
+  color: #fff;
+}
+
+.btn-scroll:hover {
+  background-color: var(--darkGreen);
+}
+
+//* Profile pick
+.profile-pic,
+.sm-profile-pic {
+  width: 40px;
+  height: 40px;
+  outline: 2px solid white;
+  outline-offset: 1px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+}
+.sm-profile-pic{
+  width: 25px;
+  height: 25px;
+  outline: none;
+  img{
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  span{
+    font-weight: bold;
+  }
+}
+
+.profile-pic:hover {
+  outline: 2px solid var(--green);
+}
+
+.profile-pic-scroll {
+  outline: 2px solid var(--green);
+}
+
+.profile-pic-scroll:hover {
+  outline: 2px solid var(--lightGreen);
+}
 //* Scroll style change
 .header-scroll{
   background-color: white;
 }
 
 
+@media only screen and (max-width: 960px){
+  .header{
+    padding:15px 5% ;
+  }
+  .join-btn{
+    padding: 10px 15px;
+  }
+}
+
+
 ::ng-deep .cdk-overlay-pane{
   margin-top: 5px;
 }
+//10 18 14
