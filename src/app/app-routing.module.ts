@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AntyAuthGuard } from './guards/antyAuth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
@@ -12,10 +16,22 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [AntyAuthGuard],
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [AntyAuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'new-recipe',
+    component: NewRecipeComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

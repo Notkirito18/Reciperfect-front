@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
     RegisterComponent,
     HeaderComponent,
     RecipeComponent,
+    NewRecipeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

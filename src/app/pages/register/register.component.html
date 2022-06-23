@@ -81,6 +81,14 @@
             Create New Account
           </button>
         </form>
+        <!--*loading spinner  -->
+        <div *ngIf="loading" class="flex-center loading">
+          <div class="snippet" data-title=".dot-flashing">
+            <div class="stage">
+              <div class="dot-flashing"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-6 gallery-side-container">

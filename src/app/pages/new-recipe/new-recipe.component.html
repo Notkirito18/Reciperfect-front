@@ -1,0 +1,211 @@
+<div class="landing">
+  <div class="container">
+    <div class="overlay"></div>
+    <div class="title">Share your recipe now</div>
+  </div>
+</div>
+<div class="container form-container">
+  <form [formGroup]="newRecForm" (submit)="addRecipe(newRecForm.value)">
+    <!--*Name and description  -->
+    <div class="row">
+      <div class="col-md-6">
+        <!--recipe name  -->
+        <div class="field">
+          <div class="input-label">Recipe Name</div>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            placeholder="Recipe name"
+          />
+        </div>
+        <!--Description  -->
+        <div class="field">
+          <div class="input-label">Recipe Description</div>
+          <textarea
+            id="description"
+            rows="5"
+            class="form-control"
+            formControlName="description"
+            placeholder="Recipe description"
+          ></textarea>
+        </div>
+      </div>
+      <!--*Images  -->
+      <div class="col-md-6">
+        <div class="input-label">Recipe Gallery</div>
+        <input
+          type="file"
+          #fileInput
+          style="display: none"
+          accept="image/*"
+          multiple
+          (change)="onFilesImport($event)"
+        />
+        <!-- container when empy -->
+        <ng-container *ngIf="imagesSrcs.length <= 0">
+          <div
+            class="galery-container flex-center m-t-10"
+            (click)="fileInput.click()"
+          >
+            <div class="flex-center">
+              <mat-icon class="m-r-10">add</mat-icon><span> Import images</span>
+            </div>
+          </div>
+        </ng-container>
+        <!-- container when not empy -->
+        <ng-container *ngIf="imagesSrcs.length > 0">
+          <div class="galery-container full flex-center m-t-10">
+            <div class="image-box" *ngFor="let image of imagesSrcs">
+              <img
+                [src]="
+                  image
+                    ? image.url
+                    : 'https://www.mountaingoatsoftware.com/uploads/blog/2016-09-06-what-is-a-product.png'
+                "
+                alt="product-image"
+              />
+              <div
+                mat-ripple
+                class="delete-icon flex-center"
+                (click)="deleteImage(image.url, image.localId)"
+              >
+                <mat-icon>remove</mat-icon>
+              </div>
+            </div>
+            <div
+              class="add-image flex-center"
+              mat-ripple
+              (click)="fileInput.click()"
+            >
+              <mat-icon>add</mat-icon>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row">
+      <!--*Ingredients  -->
+      <div class="col-md-6">
+        <div style="position: relative">
+          <div class="input-label">Ingredients</div>
+          <span
+            *ngIf="!(screenSize == 'sm' || screenSize == 'xs')"
+            class="addlg add"
+            (click)="addCtrl('ing')"
+            >Add Ingredient</span
+          >
+          <span
+            *ngIf="screenSize == 'sm' || screenSize == 'xs'"
+            class="addsm add"
+            (click)="addCtrl('ing')"
+            ><mat-icon>add</mat-icon></span
+          >
+        </div>
+        <div
+          formArrayName="ingredients"
+          *ngFor="let ing of ingCtrl.controls; let i = index"
+        >
+          <div class="row" [formGroupName]="i">
+            <div class="col-sm-6 field">
+              <input
+                formControlName="ingName"
+                type="text"
+                placeholder="Ingredient"
+                class="form-control"
+              />
+            </div>
+            <div class="col-sm-3 field">
+              <input
+                formControlName="ingUnit"
+                type="text"
+                placeholder="Unit"
+                class="form-control"
+              />
+            </div>
+            <div class="col-sm-2 col-10 field">
+              <input
+                formControlName="ingAmount"
+                type="number"
+                min="1"
+                placeholder="Amount"
+                class="form-control"
+              />
+              <button
+                class="removeField sm-marginFix"
+                [disabled]="i < 1 && ingCtrl.controls.length < 2"
+                (click)="removeCtrl(i, 'ing')"
+              >
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--*Instructions  -->
+      <div class="col-md-6">
+        <div style="position: relative">
+          <div class="input-label">Instructions</div>
+          <span
+            *ngIf="!(screenSize == 'sm' || screenSize == 'xs')"
+            class="addlg add"
+            (click)="addCtrl('inst')"
+          >
+            Add Instruction
+          </span>
+          <span
+            *ngIf="screenSize == 'sm' || screenSize == 'xs'"
+            class="addsm add"
+            (click)="addCtrl('inst')"
+          >
+            <mat-icon>add</mat-icon>
+          </span>
+        </div>
+        <div
+          formArrayName="instructions"
+          *ngFor="let inst of instCtrl.controls; let i = index"
+        >
+          <div class="row" [formGroupName]="i">
+            <div class="col-11 field">
+              <div class="instruction-index">{{ i + 1 }}.</div>
+              <input
+                formControlName="inst"
+                type="text"
+                placeholder="Instruction"
+                class="form-control"
+              />
+              <button
+                class="removeField"
+                [disabled]="i < 1 && instCtrl.controls.length < 2"
+                (click)="removeCtrl(i, 'inst')"
+              >
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--* public or private recipe / submit  -->
+    <div class="submit-section">
+      <div class="private">
+        <input type="checkbox" formControlName="share" />
+        <span>Make this recipe private (only you can see it)</span>
+      </div>
+      <button type="submit" class="submit-btn" [disabled]="!newRecForm.valid">
+        Add New Recipe
+      </button>
+    </div>
+    <!-- <div class="row submit-section">
+      <div class="col-sm-6 private">
+        <input type="checkbox" formControlName="share" />
+        <span>Make this recipe private (only you can see it)</span>
+      </div>
+      <div class="col-sm-6">
+        <button type="submit" class="submit-btn">Add New Recipe</button>
+      </div>
+    </div> -->
+  </form>
+</div>

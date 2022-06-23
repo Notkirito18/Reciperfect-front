@@ -1,4 +1,6 @@
-
+.container-xl{
+  padding-top: 80px;
+}
 .form-side{
   padding-top: 50px;
   .logo{
@@ -33,7 +35,7 @@
         border-radius: 3px;
         margin: auto;
         width: 80%;
-        background-color: rgb(240, 240, 240);
+        background-color: var(--grey);
         border: 2px solid rgba(255, 255, 255, 0);
       }
     .field{

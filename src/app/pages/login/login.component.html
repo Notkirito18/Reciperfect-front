@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container-xl">
   <div class="row">
-    <div class="col-sm-6 form-side">
+    <div class="col-md-6 form-side">
       <div class="logo">logo</div>
       <div class="title">Welcome back to Reciperfect</div>
       <div class="subtitle">
@@ -44,6 +44,14 @@
             Login
           </button>
         </form>
+        <!--*loading spinner  -->
+        <div *ngIf="loading" class="flex-center loading">
+          <div class="snippet" data-title=".dot-flashing">
+            <div class="stage">
+              <div class="dot-flashing"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-6 gallery-side-container">

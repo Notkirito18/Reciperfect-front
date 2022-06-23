@@ -1,7 +1,11 @@
-<header class="header" [ngClass]="scrolled ? 'header-scroll' : ''">
+<header
+  class="header"
+  [ngClass]="scrolled ? 'header-scroll' : !transparent ? 'background' : ''"
+>
+  <!--*Logo  -->
   <div class="row">
     <div class="col-md-2 col-3">
-      <div class="logo">Logo</div>
+      <div [routerLink]="'/'" class="logo">Logo</div>
     </div>
     <!--*links large view  -->
     <div
@@ -42,6 +46,7 @@
       >
       <span
         *ngIf="loggedIn"
+        [routerLink]="'/new-recipe'"
         class="link"
         [ngClass]="scrolled ? 'link-scroll' : ''"
         >Upload</span
@@ -56,7 +61,7 @@
         <span class="small-arrow"></span>
       </div>
       <mat-menu #lgmenu="matMenu" xPosition="before">
-        <button mat-menu-item class="mat-menu-item">
+        <button mat-menu-item class="mat-menu-item" [routerLink]="'/profile'">
           <mat-icon>manage_accounts</mat-icon>
           <span> Edit Profile </span>
         </button>
@@ -100,7 +105,12 @@
       >
     </div>
     <div *ngIf="loggedIn" class="col-3 sm-link-container">
-      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''">Upload</span>
+      <span
+        class="link"
+        [routerLink]="'/new-recipe'"
+        [ngClass]="scrolled ? 'link-scroll' : ''"
+        >Upload</span
+      >
     </div>
     <div
       [matMenuTriggerFor]="smmenu"
@@ -119,7 +129,7 @@
           <span> Username </span>
         </div>
       </div>
-      <button mat-menu-item class="mat-menu-item">
+      <button mat-menu-item class="mat-menu-item" [routerLink]="'/profile'">
         <mat-icon>manage_accounts</mat-icon>
         <span> Edit Profile </span>
       </button>

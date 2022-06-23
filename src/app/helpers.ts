@@ -72,3 +72,11 @@ export const validInput = (
     (form.controls[inputName].dirty || form.controls[inputName].touched)
   );
 };
+
+export function IdGenerator(): string {
+  return (
+    '_' +
+    Math.random().toString(36).substr(2, 9) +
+    new Date().getTime().toString().substr(2, 9)
+  );
+}

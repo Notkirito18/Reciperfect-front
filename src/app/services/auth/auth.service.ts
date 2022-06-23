@@ -12,14 +12,13 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   user = new BehaviorSubject<User | any>(null);
   expirationTimer: any;
-  notification = new Subject<{ msg: string; type: 'error' | 'notError' }>();
 
   constructor(private router: Router, private http: HttpClient) {}
 
   register(username: string, email: string, password: string) {
     return this.http
       .post(
-        'http://localhost:5000/auth/register',
+        environment.url + 'auth/register',
         {
           username,
           email,
@@ -43,7 +42,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post(
-        'http://localhost:5000/auth/login',
+        environment.url + 'auth/login',
         { email, password },
         { headers: { key: environment.serverKey }, observe: 'response' }
       )

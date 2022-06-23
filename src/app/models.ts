@@ -15,3 +15,25 @@ export class User {
     }
   }
 }
+
+export class Recipe {
+  constructor(
+    public name: string,
+    public description: string,
+    public ingredients: Ingredient[],
+    public instructions: string[],
+    public imagesFiles: File[],
+    public imagesSrcs: string[],
+    public share: boolean,
+    public creatorId: string,
+    public date: Date
+  ) {}
+}
+
+export class Ingredient {
+  constructor(
+    public name: string,
+    public unit: string,
+    public amount: number
+  ) {}
+}

@@ -12,6 +12,7 @@ import {
   validInput,
 } from 'src/app/helpers';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { GlobalsService } from 'src/app/services/globals.service';
 
 @Component({
   selector: 'app-register',
@@ -22,12 +23,17 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private globals: GlobalsService,
     private router: Router
   ) {}
 
   registerForm!: FormGroup;
+  loading = false;
 
   ngOnInit(): void {
+    //header
+    this.globals.headerTransparency.next(false);
+    //initialising form
     this.registerForm = this.fb.group(
       {
         username: [
@@ -50,18 +56,21 @@ export class RegisterComponent implements OnInit {
     { username, email, password }: any,
     formDirective: FormGroupDirective
   ) {
+    this.loading = true;
+    this.registerForm.reset();
+    formDirective.resetForm();
     this.authService.register(username, email, password).subscribe(
       ({ body }) => {
+        this.loading = false;
         this.router.navigate(['/']);
-        this.authService.notification.next({
+        this.globals.notification.next({
           msg: 'welcome ' + body.username,
           type: 'notError',
         });
       },
       (error) => {
-        this.registerForm.reset();
-        formDirective.resetForm();
-        this.authService.notification.next({
+        this.loading = false;
+        this.globals.notification.next({
           msg: error.error.msg,
           type: 'error',
         });
