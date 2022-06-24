@@ -5,7 +5,22 @@
   </div>
 </div>
 <div class="container form-container">
-  <form [formGroup]="newRecForm" (submit)="addRecipe(newRecForm.value)">
+  <div class="loading" *ngIf="loading">
+    <div class="loading-overlay"></div>
+    <div class="loading-content">
+      <div>Adding Recipe</div>
+      <div class="snippet" data-title=".dot-flashing">
+        <div class="stage">
+          <div class="dot-flashing"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form
+    [formGroup]="newRecForm"
+    #formDirective="ngForm"
+    (submit)="addRecipe(newRecForm.value, formDirective)"
+  >
     <!--*Name and description  -->
     <div class="row">
       <div class="col-md-6">

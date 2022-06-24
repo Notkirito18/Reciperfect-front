@@ -5,8 +5,10 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  FormGroupDirective,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IdGenerator } from 'src/app/helpers';
 import { Ingredient, Recipe } from 'src/app/models';
@@ -25,7 +27,8 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
     private mediaObserver: MediaObserver,
     private globals: GlobalsService,
     private authService: AuthService,
-    private recipesSercive: RecipesService
+    private recipesSercive: RecipesService,
+    private router: Router
   ) {}
 
   mediaSubscription!: Subscription;
@@ -35,6 +38,7 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
   imagesFiles: { localId: string; file: File }[] = [];
   userId!: string;
   authToken!: string;
+  loading = false;
 
   //*on init
   ngOnInit(): void {
@@ -163,7 +167,7 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
   }
 
   //* On form submit (adding recipe)
-  addRecipe(formValue: any) {
+  addRecipe(formValue: any, formDirective: FormGroupDirective) {
     const recipeToAdd = new Recipe(
       formValue.name,
       formValue.description,
@@ -192,14 +196,22 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
       this.userId,
       new Date()
     );
+    this.loading = true;
 
     this.recipesSercive
       .addRecipe(recipeToAdd, this.authToken, this.userId)
       .subscribe(
         (addedRecipe) => {
+          this.newRecForm.reset();
+          formDirective.resetForm();
+          this.loading = false;
+          this.router.navigate(['recipe', addedRecipe._id]);
           console.log('added', addedRecipe);
         },
         ({ error }) => {
+          this.newRecForm.reset();
+          formDirective.resetForm();
+          this.loading = false;
           this.globals.notification.next({
             msg: error.msg
               ? error.msg

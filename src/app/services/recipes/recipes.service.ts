@@ -15,8 +15,8 @@ export class RecipesService {
     recipeToAdd: Recipe,
     token: string,
     userDataId: string
-  ): Observable<Recipe> {
-    // formation product to FormData
+  ): Observable<any> {
+    // formation images to FormData
     const formData = new FormData();
     for (let i = 0; i < recipeToAdd.imagesFiles.length; i++) {
       formData.append(
@@ -25,6 +25,7 @@ export class RecipesService {
         recipeToAdd.imagesFiles[i].name
       );
     }
+
     return this.http
       .post(environment.url + 'api/recipes/write/saveImage', formData, {
         headers: {
@@ -35,14 +36,13 @@ export class RecipesService {
       })
       .pipe(
         mergeMap((res: any) => {
-          const imagesPaths = res.images.map((item: any) => item.imagePath);
+          const imagesPaths = res.images.map((item: any) => item.url);
           const productToSend = {
             ...recipeToAdd,
-            imageGallery: imagesPaths,
             imagesSrcs: imagesPaths,
           };
           return this.http
-            .post<{ recipe: Recipe }>(
+            .post<{ recipe: any }>(
               environment.url + 'api/recipes/write',
               productToSend,
               {

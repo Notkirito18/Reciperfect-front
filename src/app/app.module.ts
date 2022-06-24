@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     RecipeComponent,
     NewRecipeComponent,
     ProfileComponent,
+    RecipePageComponent,
   ],
   imports: [
     BrowserModule,
