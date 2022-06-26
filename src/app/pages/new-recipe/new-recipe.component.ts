@@ -58,32 +58,18 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
     });
     //inittialising form
     this.newRecForm = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(15),
-        ],
-      ],
-      description: ['', [Validators.maxLength(250)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.maxLength(500)]],
       ingredients: this.fb.array([
         this.fb.group({
-          ingName: [
-            '',
-            [
-              Validators.required,
-              Validators.minLength(3),
-              Validators.maxLength(15),
-            ],
-          ],
-          ingUnit: ['', [Validators.maxLength(15)]],
+          ingName: ['', [Validators.required, Validators.minLength(3)]],
+          ingUnit: ['', [Validators.maxLength(20)]],
           ingAmount: ['', [Validators.min(1)]],
         }),
       ]),
       instructions: this.fb.array([
         this.fb.group({
-          inst: ['', [Validators.required, Validators.maxLength(80)]],
+          inst: ['', [Validators.required]],
         }),
       ]),
       share: false,

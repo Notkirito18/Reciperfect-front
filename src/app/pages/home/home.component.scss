@@ -4,7 +4,7 @@
   background-size: cover;
   .container{
     padding-top: 80px;
-    padding-bottom: 150px;
+    padding-bottom: 100px;
     flex-direction: column;
     .overlay{
       width: 100%;
@@ -71,11 +71,21 @@
     }
   }
 }
-
-
 .recipes-display{
-  height: 8000px;
-  background-color: aquamarine;
+  .filters-bar {
+    height: 50px;
+    background-color: #7f7f7f;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .recipes-container{
+    margin: 0 !important;
+    div{
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 
 @media only screen and (max-width: 960px) {

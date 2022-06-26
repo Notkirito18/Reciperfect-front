@@ -80,3 +80,23 @@ export function IdGenerator(): string {
     new Date().getTime().toString().substr(2, 9)
   );
 }
+
+export function median(arr: number[]) {
+  const mid = Math.floor(arr.length / 2),
+    nums = [...arr].sort((a, b) => {
+      return a - b;
+    });
+  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+}
+
+import { Directive, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[stop-click-propagation]',
+})
+export class ClickStopPropagation {
+  @HostListener('click', ['$event'])
+  public onClick(event: any): void {
+    event.stopPropagation();
+  }
+}

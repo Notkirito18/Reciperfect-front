@@ -17,10 +17,16 @@
   </div>
 </section>
 <section class="recipes-display">
-  <!-- <div class="filters-bar"></div> -->
-  <div class="recipes-container row">
-    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let recipe of recipes">
-      <app-recipe></app-recipe>
+  <div class="filters-bar">
+    <div>all</div>
+    <div>new</div>
+    <div>liked</div>
+  </div>
+  <div class="container">
+    <div class="recipes-container row">
+      <div class="col-md-6 col-lg-3" *ngFor="let recipe of recipes">
+        <app-recipe [recipe]="recipe"></app-recipe>
+      </div>
     </div>
   </div>
 </section>

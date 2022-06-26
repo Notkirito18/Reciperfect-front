@@ -1,1 +1,29 @@
-<p>recipe-page works!</p>
+<div class="container" *ngIf="recipe; else loading">
+  <div class="title">
+    {{ recipe.name }}
+  </div>
+  <div class="by mb-1 mb-md-3">
+    by <b> {{ creatorUsername }} </b>
+  </div>
+  <div class="description mb-3">
+    {{ recipe.description }}
+  </div>
+  <div class="row">
+    <div class="col-md-9 gallery">
+      <app-images-grid [images]="recipe.imagesSrcs"></app-images-grid>
+    </div>
+    <div class="col-md-3">
+      <div class="info">this is info</div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <!--*loading spinner  -->
+  <div *ngIf="loading" class="flex-center loading">
+    <div class="snippet" data-title=".dot-flashing">
+      <div class="stage">
+        <div class="dot-flashing"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

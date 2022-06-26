@@ -1,0 +1,34 @@
+<div class="wrapper">
+  <div class="title">Rate Recipe</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="rate">
+          <div class="stars">
+            <mat-icon (click)="rateSelected(1)">{{
+              rating >= 1 ? "star" : "star_outline"
+            }}</mat-icon>
+            <mat-icon (click)="rateSelected(2)">{{
+              rating >= 2 ? "star" : "star_outline"
+            }}</mat-icon>
+            <mat-icon (click)="rateSelected(3)">{{
+              rating >= 3 ? "star" : "star_outline"
+            }}</mat-icon>
+            <mat-icon (click)="rateSelected(4)">{{
+              rating >= 4 ? "star" : "star_outline"
+            }}</mat-icon>
+            <mat-icon (click)="rateSelected(5)">{{
+              rating >= 5 ? "star" : "star_outline"
+            }}</mat-icon>
+          </div>
+          <span class="num">{{ rating }}</span>
+        </div>
+      </div>
+      <div class="col-md-4 btn-container">
+        <span class="btn" (click)="dialogRef.close({ rating: rating })"
+          >Give Rating</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

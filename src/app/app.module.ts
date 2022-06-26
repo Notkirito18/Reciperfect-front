@@ -20,6 +20,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
+import { ImagesGridComponent } from './componants/images-grid/images-grid.component';
+import { ClickStopPropagation } from './helpers';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RateDialogComponent } from './componants/rate-dialog/rate-dialog.component';
+import { LoginDialogComponent } from './componants/login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,10 @@ import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
     NewRecipeComponent,
     ProfileComponent,
     RecipePageComponent,
+    ImagesGridComponent,
+    ClickStopPropagation,
+    RateDialogComponent,
+    LoginDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +52,7 @@ import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
     MatSnackBarModule,
     MatMenuModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

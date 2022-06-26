@@ -1,0 +1,51 @@
+.wrapper{
+  margin: -24px;
+  .title{
+    padding: 24px;
+    font-size: 18px;
+    font-weight: bold;
+    background: var(--lightGreen);
+    color: white;
+  }
+  .container{
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    .msg{
+      font-weight: 500;
+      text-align: center;
+      font-size: 18px;
+    }
+    .login{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px
+      ;
+      .btn{
+        padding: 8px 30px;
+        color: var(--lightGreen);
+        border: 2px solid var(--lightGreen);
+        transition: all 300ms ease;
+        cursor: pointer;
+      }
+      .btn:hover{
+        background-color: var(--lightGreen);
+        color: white;
+      }
+      .register{
+        font-size: 12px;
+        span{
+          font-weight: 500;
+          cursor: pointer;
+        }
+        span:hover{
+          color: var(--green);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

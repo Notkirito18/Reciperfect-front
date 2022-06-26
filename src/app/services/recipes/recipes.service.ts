@@ -54,11 +54,118 @@ export class RecipesService {
               }
             )
             .pipe(
-              map((productsObject) => {
-                return productsObject.recipe;
+              map((recipeObject) => {
+                return recipeObject.recipe;
               })
             );
         })
       );
   }
+
+  getRecipes(userId?: string) {
+    return this.http
+      .get<{ recipes: Recipe[] }>(
+        environment.url + 'api/recipe/read',
+        userId
+          ? {
+              headers: {
+                key: environment.serverKey,
+                userDataId: userId,
+              },
+            }
+          : {
+              headers: {
+                key: environment.serverKey,
+              },
+            }
+      )
+      .pipe(
+        map((recipeObject) => {
+          return recipeObject.recipes;
+        })
+      );
+  }
+
+  getRecipe(id: string, userId?: string) {
+    return this.http
+      .get<{ recipe: any }>(
+        environment.url + 'api/recipe/read/' + id,
+        userId
+          ? {
+              headers: {
+                key: environment.serverKey,
+                userDataId: userId,
+              },
+            }
+          : {
+              headers: {
+                key: environment.serverKey,
+              },
+            }
+      )
+      .pipe(
+        map((recipeObject) => {
+          return recipeObject.recipe;
+        })
+      );
+  }
+
+  updateRecipe(
+    id: string,
+    newRecipe: Recipe,
+    token: string,
+    userDataId: string
+  ) {
+    return this.http
+      .patch<{ recipe: any }>(
+        environment.url + 'api/recipes/write/' + id,
+        newRecipe,
+        {
+          headers: {
+            key: environment.serverKey,
+            authToken: token,
+            userDataId: userDataId,
+          },
+        }
+      )
+      .pipe(
+        map((recipeObject) => {
+          return recipeObject.recipe;
+        })
+      );
+  }
+
+  // likeRecipe(id: string, token: string, userDataId: string) {
+  //   this.getRecipe(id, userDataId).subscribe(
+  //     (recipe) => {
+  //       const idArr = [userDataId];
+  //       const liked = recipe.likes.includes(userDataId);
+  //       const newLikes = liked ? recipe.likes.filter((item: string) => {
+  //             item != userDataId;
+  //           })
+  //         : recipe.likes.concat(idArr);
+  //       const newRecipe = { ...recipe, likes: newLikes };
+  //       this.updateRecipe(id, newRecipe, token, userDataId).subscribe(
+  //         (updatedRecipe) => {
+  //           return true;
+  //         },
+  //         (error) => {
+  //           console.log(error);
+  //           return false;
+  //         }
+  //       );
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       return false;
+  //     }
+  //   );
+  // }
+
+  // rateRecipe(
+  //   id: string,
+  //   newRecipe: Recipe,
+  //   token: string,
+  //   userDataId: string
+  // ) {}
 }

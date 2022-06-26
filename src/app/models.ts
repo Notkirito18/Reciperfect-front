@@ -26,8 +26,15 @@ export class Recipe {
     public imagesSrcs: string[],
     public share: boolean,
     public creatorId: string,
-    public date: Date
+    public date: Date,
+    public ratings?: Rating[],
+    public likes?: string[],
+    public _id?: string
   ) {}
+}
+
+export class Rating {
+  constructor(public ratorId: string, public ratingScore: number) {}
 }
 
 export class Ingredient {

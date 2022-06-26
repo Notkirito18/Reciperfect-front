@@ -121,7 +121,11 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  getStorageData() {
-    return JSON.parse(localStorage.getItem('userData') || '{}');
+  getUserName(id: string) {
+    return this.http.get<{ user: User }>(environment.url + 'api/users/' + id, {
+      headers: {
+        key: environment.serverKey,
+      },
+    });
   }
 }
