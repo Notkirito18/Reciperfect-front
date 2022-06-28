@@ -52,7 +52,6 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
     this.globals.headerTransparency.next(true);
     //getting creator id
     this.authService.user.subscribe((user) => {
-      console.log(user);
       this.authToken = user._token;
       this.userId = user._id;
     });
@@ -64,7 +63,7 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
         this.fb.group({
           ingName: ['', [Validators.required, Validators.minLength(3)]],
           ingUnit: ['', [Validators.maxLength(20)]],
-          ingAmount: ['', [Validators.min(1)]],
+          ingAmount: ['', [Validators.min(0)]],
         }),
       ]),
       instructions: this.fb.array([

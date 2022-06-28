@@ -5,6 +5,11 @@
     font-weight: bold;
     padding: 15px 0px;
   }
+  .sub-title{
+    font-size: 32px;
+    font-weight: bold;
+    padding: 15px 0px;
+  }
   .rating {
     width: 100%;
     display: flex;
@@ -13,7 +18,7 @@
     color: rgba(0, 0, 0, 0.8);
 
     .stars {
-      color: var(--orange);
+      color: var(--yellow);
       display: flex;
       align-items: center;
 
@@ -54,8 +59,8 @@
         }
       }
       .rate{
-        color : var(--orange);
-        border: 2px solid var(--orange);
+        color : var(--yellow);
+        border: 2px solid var(--yellow);
       }
       .save{
         color: var(--red);
@@ -63,7 +68,7 @@
       }
 
       .rate:hover {
-        background-color: var(--orange);
+        background-color: var(--yellow);
         color: white;
       }
       .save:hover {
@@ -94,20 +99,51 @@
       font-size: 14px;
       padding-bottom: 16px;
       b{
-        // font-size: 14px;
         margin-right: 5px;
       }
     }
   }
+  .ingredients{
+    padding: 30px 15px 15px;
+    .ing{
+      font-size: 18px;
+      // margin-bottom: 32px;
+    }
+  }
+  .instructions {
+    padding: 30px 15px 15px;
+    .step{
+      color: #595959;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .inst {
+      // margin-bottom: 32px;
+    }
+  }
+
 }
+
+
 .loading{
   margin-top: 130px;
 }
-
+hr{
+  background-color:#d9d9d9;
+  height: 2px;
+  margin: 30px 0px;
+  border: none;
+}
 @media only screen and (max-width: 991px) {
   .container{
     .title{
       font-size: 32px;
+      padding: 10px 0px;
+    }
+    .sub-title{
+      font-size: 24px;
       padding: 10px 0px;
     }
   }

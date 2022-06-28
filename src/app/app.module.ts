@@ -20,7 +20,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
-import { ImagesGridComponent } from './componants/images-grid/images-grid.component';
 import { ClickStopPropagation } from './helpers';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RateDialogComponent } from './componants/rate-dialog/rate-dialog.component';
@@ -28,6 +27,7 @@ import { LoginDialogComponent } from './componants/login-dialog/login-dialog.com
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TooltipComponent } from './componants/tooltip/tooltip.component';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,6 @@ import { TooltipComponent } from './componants/tooltip/tooltip.component';
     NewRecipeComponent,
     ProfileComponent,
     RecipePageComponent,
-    ImagesGridComponent,
     ClickStopPropagation,
     RateDialogComponent,
     LoginDialogComponent,
@@ -59,6 +58,7 @@ import { TooltipComponent } from './componants/tooltip/tooltip.component';
     MatDialogModule,
     MatSelectModule,
     MatTooltipModule,
+    IvyCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

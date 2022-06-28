@@ -37,41 +37,79 @@
   </div>
 
   <!--*description  -->
-
-  <div class="description mb-3">
-    {{ recipe.description }}
-  </div>
-
-  <div class="row">
-    <!--*gallery  -->
-    <div class="col-lg-9 gallery">
-      <app-images-grid [images]="recipe.imagesSrcs"></app-images-grid>
+  <section>
+    <div class="description mb-3">
+      {{ recipe.description }}
     </div>
-    <div class="col-lg-3">
-      <!--*actions  -->
-      <div class="actions">
-        <span (click)="onRate()" class="btn rate"
-          ><mat-icon>{{ rated ? "star" : "star_outline" }}</mat-icon
-          >Rate</span
+
+    <div class="row">
+      <!--*gallery  -->
+      <div class="col-lg-9 gallery">
+        <carousel
+          [images]="imagesPaths"
+          [objectFit]="'contain'"
+          [cellWidth]="'100%'"
+          [height]="450"
+          [autoplay]="false"
+          [dots]="true"
         >
-        <span (click)="onLike()" class="btn save"
-          ><mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon
-          >{{ liked ? "Unsave" : "Save" }}</span
-        >
+        </carousel>
       </div>
-      <!--*info  -->
-      <div class="info">
-        <div class="time-icon"><mat-icon>schedule</mat-icon></div>
-        <div><b> Prep: </b> {{ recipe.prepTime }}mins</div>
-        <div><b> Cook: </b> {{ recipe.cookTime }}mins</div>
-        <div><b> Total: </b> {{ recipe.cookTime + recipe.prepTime }}mins</div>
-        <div><b> Serving: </b> {{ recipe.serving }}</div>
-        <div><b> Yield: </b> {{ recipe.servingsYield }}</div>
+      <div class="col-lg-3">
+        <!--*actions  -->
+        <div class="actions">
+          <span (click)="onRate()" class="btn rate"
+            ><mat-icon>{{ rated ? "star" : "star_outline" }}</mat-icon
+            >Rate</span
+          >
+          <span (click)="onLike()" class="btn save"
+            ><mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon
+            >{{ liked ? "Unsave" : "Save" }}</span
+          >
+        </div>
+        <!--*info  -->
+        <div class="info">
+          <div class="time-icon"><mat-icon>schedule</mat-icon></div>
+          <div><b> Prep: </b> {{ recipe.prepTime }}mins</div>
+          <div><b> Cook: </b> {{ recipe.cookTime }}mins</div>
+          <div><b> Total: </b> {{ recipe.cookTime + recipe.prepTime }}mins</div>
+          <div><b> Serving: </b> {{ recipe.serving }}</div>
+          <div><b> Yield: </b> {{ recipe.servingsYield }}</div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <hr />
   <!--*Ingredients  -->
-  <div class="ingredinets"></div>
+  <section>
+    <div class="sub-title">Ingredients</div>
+    <div class="ingredients">
+      <div *ngFor="let ing of recipe.ingredients; let i = index">
+        <div class="ing mb-4">
+          {{ ing.amount + " " + ing.unit + "s " + ing.name }}
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr />
+  <!--*Instructions  -->
+  <section>
+    <div class="sub-title">Instructions</div>
+    <div class="instructions">
+      <div *ngFor="let inst of recipe.instructions; let i = index">
+        <div class="step mb-3">
+          <mat-icon class="mr-2"
+            ><span class="material-symbols-outlined"> task_alt </span></mat-icon
+          >
+          <span> Step {{ i + 1 }} </span>
+        </div>
+        <div class="inst mb-4">
+          {{ inst }}
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <ng-template #loading>

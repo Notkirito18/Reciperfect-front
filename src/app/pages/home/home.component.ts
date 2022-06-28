@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   searchChange() {
     this.filteredRecipes = this.recipes.filter((item) => {
-      return item.name.includes(this.searchFilter);
+      return item.name.toLowerCase().includes(this.searchFilter.toLowerCase());
     });
   }
 

@@ -28,6 +28,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
   user!: User;
   id!: string;
   recipe!: Recipe | any;
+  imagesPaths!: { path: string }[];
   creatorUsername!: string;
   rating!: number;
   liked = false;
@@ -44,6 +45,9 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         this.recipesService.getRecipe(this.id, user?._id).subscribe(
           (recipe) => {
             this.recipe = recipe;
+            this.imagesPaths = recipe.imagesSrcs.map((item: string) => {
+              return { path: item };
+            });
             //* setting rating
             const ratingScores = this.recipe.ratings.map(
               (item: any) => item.ratingScore
@@ -184,7 +188,6 @@ export class RecipePageComponent implements OnInit, OnDestroy {
       });
     }
   }
-
   median = median;
   ngOnDestroy(): void {
     if (this.user$) this.user$.unsubscribe();

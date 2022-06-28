@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from 'src/app/models';
 import { environment } from 'src/environments/environment';
+import { GlobalsService } from '../globals.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +14,13 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   user = new BehaviorSubject<User | any>(null);
   expirationTimer: any;
+  sessionEndingTimer: any;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) {}
 
   register(username: string, email: string, password: string) {
     return this.http
@@ -106,6 +113,26 @@ export class AuthService {
   }
 
   autoLogout(expDuration: number) {
+    this.sessionEndingTimer = setTimeout(() => {
+      const snack = this.snackBar.open(
+        'Your session is expiring in 1 minute',
+        'Renew session',
+        {
+          duration: 8000,
+          panelClass: 'error',
+        }
+      );
+      snack.onAction().subscribe(() => {
+        //todo renew login
+        if (this.expirationTimer) {
+          clearTimeout(this.expirationTimer);
+        }
+        this.expirationTimer = setTimeout(() => {
+          this.logOut();
+        }, expDuration);
+      });
+    }, expDuration - 60000);
+
     this.expirationTimer = setTimeout(() => {
       this.logOut();
     }, expDuration);

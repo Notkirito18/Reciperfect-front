@@ -7,7 +7,7 @@
   --darkGreen: #05705A;
   --lightGreen:#06B995;
   --red:#ef233c;
-  --orange:#E8630A;
+  --yellow:#ffc100;
   --dark:#001219;
   --grey:rgb(240, 240, 240);
 }
@@ -66,7 +66,9 @@ input[type=number] {
   animation: dotFlashing 1s infinite alternate;
   animation-delay: 1s;
 }
-
+carousel {
+  z-index: 2 !important;
+}
 @keyframes dotFlashing {
   0% {
     background-color: var(--green);
