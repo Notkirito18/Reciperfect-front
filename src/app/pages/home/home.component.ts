@@ -23,7 +23,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   screenSize = 'lg';
   scrolled = false;
   loading = false;
-  recipes!: Recipe[];
+  recipes: Recipe[] = [];
+  filteredRecipes: Recipe[] = [];
+  searchFilter!: string;
   ngOnInit(): void {
     //header
     this.globals.headerTransparency.next(true);
@@ -40,14 +42,25 @@ export class HomeComponent implements OnInit, OnDestroy {
         (result: any) => {
           this.loading = false;
           this.recipes = result;
+          this.filteredRecipes = result;
         },
         (error) => {
           console.log(error);
-          this.globals.notification.next({ msg: error.msg, type: 'error' });
+          this.globals.notification.next({
+            msg: 'Failed to retrieve recipes data',
+            type: 'error',
+          });
         }
       );
     });
   }
+
+  searchChange() {
+    this.filteredRecipes = this.recipes.filter((item) => {
+      return item.name.includes(this.searchFilter);
+    });
+  }
+
   @HostListener('document:scroll')
   scrollFunction() {
     if (

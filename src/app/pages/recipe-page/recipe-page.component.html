@@ -1,22 +1,79 @@
 <div class="container" *ngIf="recipe; else loading">
+  <!--*title  -->
   <div class="title">
     {{ recipe.name }}
   </div>
   <div class="by mb-1 mb-md-3">
     by <b> {{ creatorUsername }} </b>
   </div>
+  <!--*rating  -->
+  <div class="rating">
+    <div class="stars" *ngIf="rating; else notRated">
+      <mat-icon>{{ rating < 1 ? "star_half" : "star" }}</mat-icon>
+      <mat-icon>{{
+        rating <= 1 ? "star_outline" : rating <= 1.5 ? "star_half" : "star"
+      }}</mat-icon>
+      <mat-icon>{{
+        rating <= 2 ? "star_outline" : rating <= 2.5 ? "star_half" : "star"
+      }}</mat-icon>
+      <mat-icon>{{
+        rating <= 3 ? "star_outline" : rating <= 3.5 ? "star_half" : "star"
+      }}</mat-icon>
+      <mat-icon>{{
+        rating <= 4 ? "star_outline" : rating <= 4.5 ? "star_half" : "star"
+      }}</mat-icon>
+
+      <span
+        >{{ recipe.ratings?.length }} Rating
+        {{ recipe.ratings?.length == 1 ? "" : "s" }}
+      </span>
+    </div>
+    <ng-template #notRated>
+      <div class="my-2 flex-center">
+        <mat-icon class="mr-2">star_outline</mat-icon>
+        <span> No ratings yet</span>
+      </div>
+    </ng-template>
+  </div>
+
+  <!--*description  -->
+
   <div class="description mb-3">
     {{ recipe.description }}
   </div>
+
   <div class="row">
-    <div class="col-md-9 gallery">
+    <!--*gallery  -->
+    <div class="col-lg-9 gallery">
       <app-images-grid [images]="recipe.imagesSrcs"></app-images-grid>
     </div>
-    <div class="col-md-3">
-      <div class="info">this is info</div>
+    <div class="col-lg-3">
+      <!--*actions  -->
+      <div class="actions">
+        <span (click)="onRate()" class="btn rate"
+          ><mat-icon>{{ rated ? "star" : "star_outline" }}</mat-icon
+          >Rate</span
+        >
+        <span (click)="onLike()" class="btn save"
+          ><mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon
+          >{{ liked ? "Unsave" : "Save" }}</span
+        >
+      </div>
+      <!--*info  -->
+      <div class="info">
+        <div class="time-icon"><mat-icon>schedule</mat-icon></div>
+        <div><b> Prep: </b> {{ recipe.prepTime }}mins</div>
+        <div><b> Cook: </b> {{ recipe.cookTime }}mins</div>
+        <div><b> Total: </b> {{ recipe.cookTime + recipe.prepTime }}mins</div>
+        <div><b> Serving: </b> {{ recipe.serving }}</div>
+        <div><b> Yield: </b> {{ recipe.servingsYield }}</div>
+      </div>
     </div>
   </div>
+  <!--*Ingredients  -->
+  <div class="ingredinets"></div>
 </div>
+
 <ng-template #loading>
   <!--*loading spinner  -->
   <div *ngIf="loading" class="flex-center loading">

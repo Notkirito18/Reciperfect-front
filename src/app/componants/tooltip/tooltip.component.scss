@@ -1,0 +1,22 @@
+  mat-icon {
+    font-size: 21px;
+    height: 21px;
+    width: 21px;
+    margin-left: 5px;
+    color: rgb(52, 52, 54);
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+  mat-icon:hover {
+    opacity: 1;
+  }
+
+
+::ng-deep .tooltip {
+  background-color: var(--grey);
+  border: 1px solid rgba(200, 200, 200);
+  color: black !important;
+  font-size: 11px;
+  line-height: 1.5;
+}

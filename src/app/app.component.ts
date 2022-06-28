@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.authService.autoLogin();
     //error notifier
     this.notifier$ = this.globals.notification.subscribe(({ msg, type }) => {
-      if (msg.length > 1) {
+      if (msg && msg.length > 1) {
         this.snackBar.open(msg, '', {
           duration: 4000,
           panelClass: type,

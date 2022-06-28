@@ -20,6 +20,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   user!: User;
   rating = 0;
   liked = false;
+  rated = false;
 
   constructor(
     private router: Router,
@@ -41,6 +42,11 @@ export class RecipeComponent implements OnInit, OnDestroy {
       const ratingScores = this.recipe.ratings.map((item) => item.ratingScore);
       this.rating = median(ratingScores);
     }
+    //* setting rated
+    if (this.recipe.ratings && this.user)
+      this.rated = this.recipe.ratings
+        ?.map((item: any) => item.ratorId)
+        .includes(this.user._id);
     //* setting liked
     if (this.recipe.likes && this.user) {
       if (this.recipe.likes.includes(this.user._id)) {
@@ -85,7 +91,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
     } else {
       this.dialog.open(LoginDialogComponent, {
         width: '400px',
-        data: { msg: 'Login now to like your favourite recipes' },
+        data: { msg: 'Login now to save your favourite recipes' },
       });
     }
   }
@@ -94,7 +100,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
     if (!this.user) {
       this.dialog.open(LoginDialogComponent, {
         width: '400px',
-        data: { msg: 'Login now to rate recipes' },
+        data: { msg: 'Login now and rate recipes' },
       });
     } else {
       const dialogRef = this.dialog.open(RateDialogComponent, {
@@ -103,13 +109,9 @@ export class RecipeComponent implements OnInit, OnDestroy {
       });
       dialogRef.afterClosed().subscribe((data) => {
         if (data) {
-          //* cheking if recipe already been rated by user
-          const rated = this.recipe.ratings
-            ?.map((item) => item.ratorId)
-            .includes(this.user._id);
           let newRatings;
           let newRecipe;
-          if (rated) {
+          if (this.rated) {
             //* changing previous rating
             newRatings = this.recipe.ratings?.map((item) => {
               if (item.ratorId == this.user._id) {

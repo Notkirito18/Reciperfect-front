@@ -27,6 +27,10 @@ export class Recipe {
     public share: boolean,
     public creatorId: string,
     public date: Date,
+    public prepTime: number,
+    public cookTime: number,
+    public serving: number,
+    public servingsYield: number,
     public ratings?: Rating[],
     public likes?: string[],
     public _id?: string

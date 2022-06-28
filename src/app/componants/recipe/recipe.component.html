@@ -10,6 +10,8 @@
         (recipe.description.length > 65 ? "..." : "")
     }}
   </div>
+  <!--*rating  -->
+
   <div class="rating px-3">
     <div class="stars" *ngIf="rating; else notRated">
       <mat-icon>{{ rating < 1 ? "star_half" : "star" }}</mat-icon>

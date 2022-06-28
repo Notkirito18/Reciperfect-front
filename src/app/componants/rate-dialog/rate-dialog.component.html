@@ -3,22 +3,22 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <div class="rate">
+        <div (mouseout)="hoverRating = 0" class="rate">
           <div class="stars">
-            <mat-icon (click)="rateSelected(1)">{{
-              rating >= 1 ? "star" : "star_outline"
+            <mat-icon (mouseover)="hoverRating = 1" (click)="rateSelected(1)">{{
+              rating >= 1 || hoverRating >= 1 ? "star" : "star_outline"
             }}</mat-icon>
-            <mat-icon (click)="rateSelected(2)">{{
-              rating >= 2 ? "star" : "star_outline"
+            <mat-icon (mouseover)="hoverRating = 2" (click)="rateSelected(2)">{{
+              rating >= 2 || hoverRating >= 2 ? "star" : "star_outline"
             }}</mat-icon>
-            <mat-icon (click)="rateSelected(3)">{{
-              rating >= 3 ? "star" : "star_outline"
+            <mat-icon (mouseover)="hoverRating = 3" (click)="rateSelected(3)">{{
+              rating >= 3 || hoverRating >= 3 ? "star" : "star_outline"
             }}</mat-icon>
-            <mat-icon (click)="rateSelected(4)">{{
-              rating >= 4 ? "star" : "star_outline"
+            <mat-icon (mouseover)="hoverRating = 4" (click)="rateSelected(4)">{{
+              rating >= 4 || hoverRating >= 4 ? "star" : "star_outline"
             }}</mat-icon>
-            <mat-icon (click)="rateSelected(5)">{{
-              rating >= 5 ? "star" : "star_outline"
+            <mat-icon (mouseover)="hoverRating = 5" (click)="rateSelected(5)">{{
+              rating >= 5 || hoverRating >= 5 ? "star" : "star_outline"
             }}</mat-icon>
           </div>
           <span class="num">{{ rating }}</span>

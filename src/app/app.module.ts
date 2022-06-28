@@ -25,6 +25,9 @@ import { ClickStopPropagation } from './helpers';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RateDialogComponent } from './componants/rate-dialog/rate-dialog.component';
 import { LoginDialogComponent } from './componants/login-dialog/login-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TooltipComponent } from './componants/tooltip/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,7 @@ import { LoginDialogComponent } from './componants/login-dialog/login-dialog.com
     ClickStopPropagation,
     RateDialogComponent,
     LoginDialogComponent,
+    TooltipComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +57,8 @@ import { LoginDialogComponent } from './componants/login-dialog/login-dialog.com
     MatMenuModule,
     MatIconModule,
     MatDialogModule,
+    MatSelectModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

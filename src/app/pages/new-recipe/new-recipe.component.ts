@@ -73,6 +73,10 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
         }),
       ]),
       share: false,
+      prepTime: ['', [Validators.min(1)]],
+      cookTime: ['', [Validators.min(1)]],
+      serving: ['', [Validators.min(1)]],
+      servingsYield: ['', [Validators.min(1)]],
     });
   }
 
@@ -180,7 +184,11 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
       this.imagesSrcs.map((item) => item.url),
       !formValue.share,
       this.userId,
-      new Date()
+      new Date(),
+      formValue.prepTime,
+      formValue.cookTime,
+      formValue.serving,
+      formValue.servingsYield
     );
     this.loading = true;
 

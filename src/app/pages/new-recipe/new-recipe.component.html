@@ -24,24 +24,26 @@
     <!--*Name and description  -->
     <div class="row">
       <div class="col-md-6">
-        <!--recipe name  -->
+        <!--*recipe name  -->
         <div class="field">
-          <div class="input-label">Recipe Name</div>
-          <input
-            type="text"
-            id="name"
-            class="form-control"
-            formControlName="name"
-            placeholder="Recipe name"
-          />
+          <div class="input-label">
+            Recipe Name
+            <tooltip
+              message="Give the name of the recipe.(*mandatory)"
+            ></tooltip>
+          </div>
+          <input type="text" formControlName="name" placeholder="Recipe name" />
         </div>
-        <!--Description  -->
+        <!--*Description  -->
         <div class="field">
-          <div class="input-label">Recipe Description</div>
+          <div class="input-label">
+            Recipe Description
+            <tooltip
+              message="Give a description for the recipe.(*mandatory)"
+            ></tooltip>
+          </div>
           <textarea
-            id="description"
             rows="5"
-            class="form-control"
             formControlName="description"
             placeholder="Recipe description"
           ></textarea>
@@ -49,7 +51,10 @@
       </div>
       <!--*Images  -->
       <div class="col-md-6">
-        <div class="input-label">Recipe Gallery</div>
+        <div class="input-label">
+          Recipe Gallery
+          <tooltip message="upload pictures of the recipe.(optional)"></tooltip>
+        </div>
         <input
           type="file"
           #fileInput
@@ -104,7 +109,12 @@
       <!--*Ingredients  -->
       <div class="col-md-6">
         <div style="position: relative">
-          <div class="input-label">Ingredients</div>
+          <div class="input-label">
+            Ingredients
+            <tooltip
+              message="Insert the ingredient, unit of measurement and the amount.(*at least one ingredient)"
+            ></tooltip>
+          </div>
           <span
             *ngIf="!(screenSize == 'sm' || screenSize == 'xs')"
             class="addlg add"
@@ -128,24 +138,18 @@
                 formControlName="ingName"
                 type="text"
                 placeholder="Ingredient"
-                class="form-control"
               />
             </div>
             <div class="col-sm-3 field">
-              <input
-                formControlName="ingUnit"
-                type="text"
-                placeholder="Unit"
-                class="form-control"
-              />
+              <input formControlName="ingUnit" type="text" placeholder="Unit" />
             </div>
             <div class="col-sm-2 col-10 field">
               <input
+                style="padding: 11px 5px"
                 formControlName="ingAmount"
                 type="number"
                 min="1"
                 placeholder="Amount"
-                class="form-control"
               />
               <button
                 class="removeField sm-marginFix"
@@ -161,7 +165,12 @@
       <!--*Instructions  -->
       <div class="col-md-6">
         <div style="position: relative">
-          <div class="input-label">Instructions</div>
+          <div class="input-label">
+            Instructions (Steps)
+            <tooltip
+              message="Step by step instructions for the recipe.(*at least one step)"
+            ></tooltip>
+          </div>
           <span
             *ngIf="!(screenSize == 'sm' || screenSize == 'xs')"
             class="addlg add"
@@ -187,8 +196,7 @@
               <input
                 formControlName="inst"
                 type="text"
-                placeholder="Instruction"
-                class="form-control"
+                [placeholder]="'step ' + (i + 1).toString()"
               />
               <button
                 class="removeField"
@@ -199,6 +207,77 @@
               </button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <!--* Info section  -->
+    <div class="row">
+      <!--*prepTime  -->
+      <div class="col-md-3">
+        <div class="field">
+          <div class="input-label">
+            Preperation
+            <tooltip
+              message="An estimate of the preperation time.(*mandatory)"
+            ></tooltip>
+          </div>
+          <input
+            type="number"
+            min="0"
+            formControlName="prepTime"
+            placeholder="In minutes"
+          />
+        </div>
+      </div>
+      <!--*cookTime  -->
+      <div class="col-md-3">
+        <div class="field">
+          <div class="input-label">
+            Cooking
+            <tooltip
+              message="An estimate of the cooking time.(*mandatory)"
+            ></tooltip>
+          </div>
+          <input
+            type="number"
+            min="0"
+            formControlName="cookTime"
+            placeholder="In minutes"
+          />
+        </div>
+      </div>
+      <!--*serving  -->
+      <div class="col-md-3">
+        <div class="field">
+          <div class="input-label">
+            Servings
+            <tooltip
+              message="How many servings for this recipe (eg: how many cupcakes).(optional)"
+            ></tooltip>
+          </div>
+          <input
+            type="number"
+            min="0"
+            formControlName="serving"
+            placeholder="Servings"
+          />
+        </div>
+      </div>
+      <!--*servingsYield  -->
+      <div class="col-md-3">
+        <div class="field">
+          <div class="input-label">
+            Yield
+            <tooltip
+              message="An estimate of how many people this recipe is for.(*mandatory)"
+            ></tooltip>
+          </div>
+          <input
+            type="number"
+            min="0"
+            formControlName="servingsYield"
+            placeholder="People"
+          />
         </div>
       </div>
     </div>
@@ -213,14 +292,5 @@
         Add New Recipe
       </button>
     </div>
-    <!-- <div class="row submit-section">
-      <div class="col-sm-6 private">
-        <input type="checkbox" formControlName="share" />
-        <span>Make this recipe private (only you can see it)</span>
-      </div>
-      <div class="col-sm-6">
-        <button type="submit" class="submit-btn">Add New Recipe</button>
-      </div>
-    </div> -->
   </form>
 </div>
