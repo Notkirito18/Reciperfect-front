@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
 import { LoginDialogComponent } from 'src/app/componants/login-dialog/login-dialog.component';
 import { RateDialogComponent } from 'src/app/componants/rate-dialog/rate-dialog.component';
 import { median } from 'src/app/helpers';
@@ -33,6 +32,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
   rating!: number;
   liked = false;
   rated = false;
+  myRecipe = false;
   ngOnInit(): void {
     //*header
     this.globals.headerTransparency.next(false);
@@ -45,6 +45,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         this.recipesService.getRecipe(this.id, user?._id).subscribe(
           (recipe) => {
             this.recipe = recipe;
+            this.myRecipe = recipe.creatorId == user._id;
             this.imagesPaths = recipe.imagesSrcs.map((item: string) => {
               return { path: item };
             });
@@ -105,7 +106,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
           this.recipe._id ? this.recipe._id : '',
           updatedRecipe,
           this.user.token ? this.user.token : '',
-          this.user._id
+          this.user._id,
+          null
         )
         .subscribe(
           (updatedRecipe) => {
@@ -167,7 +169,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
               this.recipe._id ? this.recipe._id : '',
               newRecipe,
               this.user.token ? this.user.token : '',
-              this.user._id
+              this.user._id,
+              null
             )
             .subscribe(
               (updatedRecipe) => {

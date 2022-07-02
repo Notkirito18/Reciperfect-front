@@ -38,7 +38,9 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
   imagesFiles: { localId: string; file: File }[] = [];
   userId!: string;
   authToken!: string;
-  loading = false;
+  addingRecipe = false;
+  otherUnit: boolean[] = [false];
+  unitsNames = ['KG', 'MG'];
 
   //*on init
   ngOnInit(): void {
@@ -50,32 +52,32 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
     );
     //header
     this.globals.headerTransparency.next(true);
-    //getting creator id
+    //*getting creator id
     this.authService.user.subscribe((user) => {
       this.authToken = user._token;
       this.userId = user._id;
     });
-    //inittialising form
+    //*inittialising form
     this.newRecForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.maxLength(500)]],
+      name: [null, [Validators.required, Validators.minLength(3)]],
+      description: [null, [Validators.maxLength(500)]],
       ingredients: this.fb.array([
         this.fb.group({
-          ingName: ['', [Validators.required, Validators.minLength(3)]],
-          ingUnit: ['', [Validators.maxLength(20)]],
-          ingAmount: ['', [Validators.min(0)]],
+          ingName: [null, [Validators.required, Validators.minLength(3)]],
+          ingUnit: [null, [Validators.maxLength(20)]],
+          ingAmount: [null, [Validators.min(0)]],
         }),
       ]),
       instructions: this.fb.array([
         this.fb.group({
-          inst: ['', [Validators.required]],
+          inst: [null, [Validators.required]],
         }),
       ]),
       share: false,
-      prepTime: ['', [Validators.min(1)]],
-      cookTime: ['', [Validators.min(1)]],
-      serving: ['', [Validators.min(1)]],
-      servingsYield: ['', [Validators.min(1)]],
+      prepTime: [null, [Validators.min(1)]],
+      cookTime: [null, [Validators.min(1)]],
+      serving: [null, [Validators.min(1)]],
+      servingsYield: [null, [Validators.min(1)]],
     });
   }
 
@@ -91,23 +93,27 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
     if (type == 'ing') {
       this.ingCtrl.controls.push(
         this.fb.group({
-          ingName: new FormControl(''),
-          ingUnit: new FormControl(''),
-          ingAmount: new FormControl(''),
+          ingName: new FormControl(null),
+          ingUnit: new FormControl(null),
+          ingAmount: new FormControl(null),
         })
       );
+      this.otherUnit.push(false);
     }
     if (type == 'inst') {
       this.instCtrl.controls.push(
         this.fb.group({
-          inst: new FormControl(''),
+          inst: new FormControl(null),
         })
       );
     }
   }
 
   removeCtrl(index: number, type: 'ing' | 'inst') {
-    if (type == 'ing') this.ingCtrl.controls.splice(index, 1);
+    if (type == 'ing') {
+      this.ingCtrl.controls.splice(index, 1);
+      this.otherUnit.pop();
+    }
     if (type == 'inst') this.instCtrl.controls.splice(index, 1);
   }
   ngOnDestroy(): void {
@@ -189,7 +195,7 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
       formValue.serving,
       formValue.servingsYield
     );
-    this.loading = true;
+    this.addingRecipe = true;
 
     this.recipesSercive
       .addRecipe(recipeToAdd, this.authToken, this.userId)
@@ -197,14 +203,14 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
         (addedRecipe) => {
           this.newRecForm.reset();
           formDirective.resetForm();
-          this.loading = false;
+          this.addingRecipe = false;
           this.router.navigate(['recipe', addedRecipe._id]);
           console.log('added', addedRecipe);
         },
         ({ error }) => {
           this.newRecForm.reset();
           formDirective.resetForm();
-          this.loading = false;
+          this.addingRecipe = false;
           this.globals.notification.next({
             msg: error.msg
               ? error.msg
@@ -213,6 +219,20 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
           });
         }
       );
+  }
+  // other unit
+  otherUnitSelected(event: any, index: number) {
+    const value = event.target?.value.toString();
+
+    if (value == '') {
+      this.otherUnit[index] = true;
+    } else {
+      //TODO make the brands array corespond to the selected category
+    }
+  }
+
+  backToSelectUnit(index: number) {
+    this.otherUnit[index] = false;
   }
   IdGenerator = IdGenerator;
 }

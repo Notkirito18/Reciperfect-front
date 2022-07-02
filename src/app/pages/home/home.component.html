@@ -19,21 +19,30 @@
     </div>
   </div>
 </section>
-<section class="recipes-display">
+<!--* tags filters  -->
+<section class="recipes-display" *ngIf="recipes; else loading">
   <div class="filters-bar">
-    <div>all</div>
-    <div>new</div>
-    <div>liked</div>
+    <span *ngFor="let tag of tags">{{ capitalCase(tag) }}</span>
   </div>
+  <!--* recipes  -->
   <div class="container">
     <div
       class="recipes-container row"
       *ngIf="filteredRecipes.length > 0; else noRecipes"
     >
-      <div class="col-md-6 col-lg-3" *ngFor="let recipe of filteredRecipes">
+      <div class="col-md-6 col-lg-3" *ngFor="let recipe of pageSliceRecipes">
         <app-recipe [recipe]="recipe"></app-recipe>
       </div>
     </div>
+    <!--* paginator  -->
+    <mat-paginator
+      [length]="filteredRecipes.length"
+      [pageSize]="12"
+      [pageSizeOptions]="[12, 24]"
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
+
     <ng-template #noRecipes>
       <div *ngIf="searchFilter" class="no-recipes">
         No recipes match your search.
@@ -41,3 +50,13 @@
     </ng-template>
   </div>
 </section>
+<ng-template #loading>
+  <!--*loading spinner  -->
+  <div *ngIf="loading" class="flex-center loading mt-5">
+    <div class="snippet" data-title=".dot-flashing">
+      <div class="stage">
+        <div class="dot-flashing"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditRecipeComponent } from './componants/edit-recipe/edit-recipe.component';
 import { AntyAuthGuard } from './guards/antyAuth.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'new-recipe',
     component: NewRecipeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit/:id',
+    component: EditRecipeComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -7,6 +7,7 @@
     padding-top: 80px;
     padding-bottom: 50px;
     flex-direction: column;
+
     .overlay {
       width: 100%;
       height: 100%;
@@ -33,10 +34,12 @@
 .form-container {
   padding: 15px;
   position: relative;
+
   .loading {
     position: absolute;
     width: 100%;
     height: 100%;
+
     .loading-overlay {
       background: #ffffff70;
       width: 100%;
@@ -46,7 +49,8 @@
       top: 0px;
       left: 0px;
     }
-    .loading-content{
+
+    .loading-content {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -65,6 +69,7 @@
       border-radius: 20px;
     }
   }
+
   .input,
   .submit-btn {
     display: block;
@@ -84,7 +89,8 @@
       border: 2px solid var(--green);
     }
 
-    input.ng-touched.ng-invalid,textarea.ng-touched.ng-invalid {
+    input.ng-touched.ng-invalid,
+    textarea.ng-touched.ng-invalid {
       border: 2px solid var(--red) !important;
     }
 
@@ -95,9 +101,11 @@
       left: 15%;
       bottom: -30px;
     }
-    input[formControlName=inst]{
+
+    input[formControlName=inst] {
       padding-left: 33px;
     }
+
     .instruction-index {
       position: absolute;
       left: 30px;
@@ -106,8 +114,10 @@
     }
 
   }
-  .other{
-    position :relative;
+
+  .other {
+    position: relative;
+
     .undo {
       position: absolute;
       right: 5px;
@@ -118,10 +128,12 @@
       width: 18px;
       cursor: pointer;
     }
+
     .undo:hover {
       color: var(--green);
     }
   }
+
   .submit-btn {
     background-color: var(--green);
     color: #fff;
@@ -146,6 +158,7 @@
     background-color: var(--green);
   }
 }
+
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
   background-color: var(--green);
@@ -153,7 +166,7 @@
 
 
 
-.add{
+.add {
   position: absolute;
   right: -5px;
   top: -5px;
@@ -164,19 +177,22 @@
   cursor: pointer;
 }
 
-.addlg{
+.addlg {
   padding: 8px 15px;
   border-radius: 5px;
 }
-.addsm{
+
+.addsm {
   padding: 5px 5px;
   border-radius: 30%;
   font-size: 0px;
-  mat-icon{
+
+  mat-icon {
     margin: 0 !important;
   }
 }
-.removeField{
+
+.removeField {
   position: absolute;
   right: -25px;
   background-color: var(--red);
@@ -187,22 +203,26 @@
   font-size: 0px;
   top: 50%;
   transform: translateY(-50%);
-  border:none
+  border: none
 }
-.removeField:disabled,.removeField[disabled] {
+
+.removeField:disabled,
+.removeField[disabled] {
   background-color: #ec717f;
   cursor: unset;
 }
 
-.submit-section{
+.submit-section {
   margin-top: 20px;
-  .private{
+
+  .private {
     display: flex;
     align-items: center;
     font-size: 12px;
     margin-bottom: 5px;
   }
 }
+
 .input-label {
   font-size: 16px;
   font-weight: 600;
@@ -217,7 +237,8 @@
   width: 100%;
   min-height: 204px;
   border: solid 1px #e0e0e0;
-  background-color: var(--grey);;
+  background-color: var(--grey);
+  ;
   border-radius: 5px;
   flex-wrap: wrap;
   margin-bottom: 20px;
@@ -274,20 +295,23 @@
 @media only screen and (max-width: 767px) {
   .landing {
     .container {
-        .title {
-          font-size: 24px !important;
-        }
+      .title {
+        font-size: 24px !important;
       }
     }
+  }
+
   .submit-btn {
     width: 100% !important;
   }
+
   .galery-container {
     min-height: 150px
   }
 }
+
 @media only screen and (max-width: 575px) {
-  .sm-marginFix{
+  .sm-marginFix {
     right: -65px;
   }
 }

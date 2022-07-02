@@ -5,6 +5,10 @@ import {
   FormGroup,
 } from '@angular/forms';
 
+export function capitalCase(s: string): string {
+  return s.slice(0, 1).toUpperCase() + s.slice(1, s.length);
+}
+
 export function searchClass(scrolled: boolean, screenSize: string): string {
   if (scrolled) {
     switch (screenSize) {

@@ -1,6 +1,19 @@
 <div class="card" (click)="onCardClick()">
-  <div class="like-btn flex-center" stop-click-propagation (click)="onLike()">
+  <div
+    *ngIf="!myRecipe"
+    class="like-btn flex-center"
+    stop-click-propagation
+    (click)="onLike()"
+  >
     <mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon>
+  </div>
+  <div
+    *ngIf="myRecipe"
+    class="edit-btn flex-center"
+    stop-click-propagation
+    [routerLink]="'edit/' + recipe._id"
+  >
+    <mat-icon>edit</mat-icon>
   </div>
   <img [src]="recipe.imagesSrcs[0]" alt="recipe-picture" />
   <div class="card-title px-3">{{ recipe.name }}</div>
@@ -33,6 +46,13 @@
     <ng-template #notRated>
       <div class="my-2">No ratings yet</div>
     </ng-template>
-    <div class="rate my-2" stop-click-propagation (click)="onRate()">Rate</div>
+    <div
+      *ngIf="!myRecipe"
+      class="rate my-2"
+      stop-click-propagation
+      (click)="onRate()"
+    >
+      Rate
+    </div>
   </div>
 </div>

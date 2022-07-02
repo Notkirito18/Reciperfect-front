@@ -37,14 +37,14 @@ export class RecipesService {
       .pipe(
         mergeMap((res: any) => {
           const imagesPaths = res.images.map((item: any) => item.url);
-          const productToSend = {
+          const recipeToSend = {
             ...recipeToAdd,
             imagesSrcs: imagesPaths,
           };
           return this.http
             .post<{ recipe: any }>(
               environment.url + 'api/recipes/write',
-              productToSend,
+              recipeToSend,
               {
                 headers: {
                   key: environment.serverKey,
@@ -109,63 +109,99 @@ export class RecipesService {
         })
       );
   }
+  deleteImages(ids: string[], token: string, userDataId: string) {
+    return this.http.post(
+      environment.url + 'api/recipes/write/deleteImages',
+      { ids },
+      {
+        headers: {
+          key: environment.serverKey,
+          authToken: token,
+          userDataId: userDataId,
+        },
+      }
+    );
+  }
 
   updateRecipe(
     id: string,
     newRecipe: Recipe,
     token: string,
-    userDataId: string
+    userDataId: string,
+    folderName: string | null
   ) {
-    return this.http
-      .patch<{ recipe: any }>(
-        environment.url + 'api/recipes/write/' + id,
-        newRecipe,
-        {
-          headers: {
-            key: environment.serverKey,
-            authToken: token,
-            userDataId: userDataId,
-          },
-        }
-      )
-      .pipe(
-        map((recipeObject) => {
-          return recipeObject.recipe;
-        })
-      );
+    if (!folderName) {
+      return this.http
+        .patch<{ recipe: any }>(
+          environment.url + 'api/recipes/write/' + id,
+          newRecipe,
+          {
+            headers: {
+              key: environment.serverKey,
+              authToken: token,
+              userDataId: userDataId,
+            },
+          }
+        )
+        .pipe(
+          map((recipeObject) => {
+            return recipeObject.recipe;
+          })
+        );
+    } else {
+      const formData = new FormData();
+      for (let i = 0; i < newRecipe.imagesFiles.length; i++) {
+        formData.append(
+          'image',
+          newRecipe.imagesFiles[i],
+          newRecipe.imagesFiles[i].name
+        );
+      }
+      return this.http
+        .post(
+          environment.url + 'api/recipes/write/saveImage/' + folderName,
+          formData,
+          {
+            headers: {
+              key: environment.serverKey,
+              authToken: token,
+              userDataId: userDataId,
+            },
+          }
+        )
+        .pipe(
+          mergeMap((res: any) => {
+            const imagesPaths = res.images.map((item: any) => item.url);
+            const recipeToSend = {
+              ...newRecipe,
+              imagesSrcs: newRecipe.imagesSrcs
+                .concat(imagesPaths)
+                .filter((item) => {
+                  return item.slice(0, 4) != 'data';
+                }),
+            };
+            console.log('imagesPaths', imagesPaths);
+            console.log('recipeToSend', recipeToSend.imagesSrcs);
+
+            return this.http
+              .patch<{ recipe: any }>(
+                environment.url + 'api/recipes/write/' + id,
+                recipeToSend,
+                {
+                  headers: {
+                    key: environment.serverKey,
+                    authToken: token,
+                    userDataId: userDataId,
+                  },
+                }
+              )
+              .pipe(
+                map((recipeObject) => {
+                  return recipeObject.recipe;
+                })
+              );
+          })
+        );
+    }
   }
-
-  // likeRecipe(id: string, token: string, userDataId: string) {
-  //   this.getRecipe(id, userDataId).subscribe(
-  //     (recipe) => {
-  //       const idArr = [userDataId];
-  //       const liked = recipe.likes.includes(userDataId);
-  //       const newLikes = liked ? recipe.likes.filter((item: string) => {
-  //             item != userDataId;
-  //           })
-  //         : recipe.likes.concat(idArr);
-  //       const newRecipe = { ...recipe, likes: newLikes };
-  //       this.updateRecipe(id, newRecipe, token, userDataId).subscribe(
-  //         (updatedRecipe) => {
-  //           return true;
-  //         },
-  //         (error) => {
-  //           console.log(error);
-  //           return false;
-  //         }
-  //       );
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       return false;
-  //     }
-  //   );
-  // }
-
-  // rateRecipe(
-  //   id: string,
-  //   newRecipe: Recipe,
-  //   token: string,
-  //   userDataId: string
-  // ) {}
 }

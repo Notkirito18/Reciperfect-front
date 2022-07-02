@@ -1,0 +1,21 @@
+.mat-dialog-content {
+  text-align: center;
+}
+h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-icon {
+  transform: scale(1.5);
+  color: var(--red);
+}
+
+.mat-dialog-actions {
+  justify-content: space-around;
+}
+.yes-btn {
+  background-color: var(--red);
+  color: white;
+}

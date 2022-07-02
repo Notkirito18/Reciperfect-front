@@ -75,10 +75,30 @@
 }
 .recipes-display{
   .filters-bar {
-    height: 50px;
-    background-color: #7f7f7f;
+    padding: 20px 0px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 15px;
+    span{
+      font-size: 14px;
+      font-weight: 500;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0px 16px;
+      border-radius: 25px;
+      background-color: rgb(170,170,170);
+      color: white;
+      cursor: pointer;
+      transition: all 200ms ease
+    }
+    span:hover{
+      background-color: var(--green);
+    }
+    span.active{
+      background-color: var(--green);
+      color: white;
+    }
   }
 
   .recipes-container{

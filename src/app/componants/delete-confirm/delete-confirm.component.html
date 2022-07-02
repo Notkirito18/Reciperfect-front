@@ -1,0 +1,18 @@
+<h1 mat-dialog-title class="flex-center">
+  <mat-icon class="title-icon mr-3">warning</mat-icon>
+  <span class="m-l-15">Warning</span>
+</h1>
+<div mat-dialog-content>
+  <p>{{ data.msg }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="this.dialogRef.close()">No</button>
+  <button
+    mat-button
+    class="yes-btn"
+    [mat-dialog-close]="{ confirm: true }"
+    cdkFocusInitial
+  >
+    Yes
+  </button>
+</div>

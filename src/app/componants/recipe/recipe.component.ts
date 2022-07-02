@@ -21,6 +21,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   rating = 0;
   liked = false;
   rated = false;
+  myRecipe = false;
 
   constructor(
     private router: Router,
@@ -36,6 +37,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
     //* getting user
     this.user$ = this.authService.user.subscribe((user) => {
       this.user = user;
+      this.myRecipe = this.recipe.creatorId == user._id;
     });
     //* setting rating
     if (this.recipe.ratings) {
@@ -73,7 +75,8 @@ export class RecipeComponent implements OnInit, OnDestroy {
           this.recipe._id ? this.recipe._id : '',
           updatedRecipe,
           this.user.token ? this.user.token : '',
-          this.user._id
+          this.user._id,
+          null
         )
         .subscribe(
           (updatedRecipe) => {
@@ -135,7 +138,8 @@ export class RecipeComponent implements OnInit, OnDestroy {
               this.recipe._id ? this.recipe._id : '',
               newRecipe,
               this.user.token ? this.user.token : '',
-              this.user._id
+              this.user._id,
+              null
             )
             .subscribe(
               (updatedRecipe) => {

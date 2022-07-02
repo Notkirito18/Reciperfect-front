@@ -6,7 +6,7 @@
   margin-bottom: 25px;
   cursor: pointer;
 
-  .like-btn {
+  .like-btn,.edit-btn {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -20,9 +20,19 @@
       transform: scale(0.9);
     }
   }
-  .like-btn:hover{
-    color: #ff5c5c
+  .edit-btn{
+    color: rgb(140, 140, 140);
   }
+  .like-btn:hover{
+    color: #ff0000
+  }
+  .edit-btn:hover {
+    color: black
+  }
+
+
+
+
   img{
     width: 100%;
     height: 300px;

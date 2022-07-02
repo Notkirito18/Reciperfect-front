@@ -49,24 +49,12 @@
           [images]="imagesPaths"
           [objectFit]="'contain'"
           [cellWidth]="'100%'"
-          [height]="450"
           [autoplay]="false"
           [dots]="true"
         >
         </carousel>
       </div>
       <div class="col-lg-3">
-        <!--*actions  -->
-        <div class="actions">
-          <span (click)="onRate()" class="btn rate"
-            ><mat-icon>{{ rated ? "star" : "star_outline" }}</mat-icon
-            >Rate</span
-          >
-          <span (click)="onLike()" class="btn save"
-            ><mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon
-            >{{ liked ? "Unsave" : "Save" }}</span
-          >
-        </div>
         <!--*info  -->
         <div class="info">
           <div class="time-icon"><mat-icon>schedule</mat-icon></div>
@@ -109,6 +97,30 @@
         </div>
       </div>
     </div>
+    <!--*actions  -->
+    <div class="actions">
+      <span
+        [routerLink]="'/edit/' + recipe._id"
+        *ngIf="myRecipe"
+        class="btn edit"
+        ><mat-icon>settings</mat-icon>
+        <span>Edit</span>
+      </span>
+      <span *ngIf="!myRecipe" (click)="onRate()" class="btn rate"
+        ><mat-icon>{{ rated ? "star" : "star_outline" }}</mat-icon>
+        <span>Rate</span>
+      </span>
+      <span *ngIf="!myRecipe" (click)="onLike()" class="btn save"
+        ><mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon>
+        <span>{{ liked ? "Unsave" : "Save" }}</span>
+      </span>
+    </div>
+  </section>
+  <hr />
+  <!--* related recipes  -->
+  <section>
+    <div class="sub-title">Recipes you might like</div>
+    <app-related-recipes [tags]="['']"></app-related-recipes>
   </section>
 </div>
 

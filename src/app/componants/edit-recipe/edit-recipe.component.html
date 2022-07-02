@@ -1,14 +1,14 @@
 <div class="landing">
   <div class="container">
     <div class="overlay"></div>
-    <div class="title">Share your recipe now</div>
+    <div class="title">Retouch your recipes</div>
   </div>
 </div>
 <div class="container form-container">
-  <div class="loading" *ngIf="addingRecipe">
+  <div class="loading" *ngIf="editingRecipe">
     <div class="loading-overlay"></div>
     <div class="loading-content">
-      <div>Adding Recipe</div>
+      <div>Editing Recipe</div>
       <div class="snippet" data-title=".dot-flashing">
         <div class="stage">
           <div class="dot-flashing"></div>
@@ -17,9 +17,10 @@
     </div>
   </div>
   <form
-    [formGroup]="newRecForm"
+    *ngIf="!loading"
+    [formGroup]="editingForm"
     #formDirective="ngForm"
-    (submit)="addRecipe(newRecForm.value, formDirective)"
+    (submit)="editRecipe(editingForm.value, formDirective)"
   >
     <!--*Name and description  -->
     <div class="row">
@@ -333,9 +334,19 @@
         ></mat-checkbox>
         <span>Make this recipe private (only you can see it)</span>
       </div>
-      <button type="submit" class="submit-btn" [disabled]="!newRecForm.valid">
-        Add New Recipe
+      <button type="submit" class="submit-btn" [disabled]="!editingForm.valid">
+        Edit Recipe
       </button>
     </div>
   </form>
 </div>
+<ng-template #loadingPage>
+  <!--*loading spinner  -->
+  <div *ngIf="loading" class="flex-center loading">
+    <div class="snippet" data-title=".dot-flashing">
+      <div class="stage">
+        <div class="dot-flashing"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

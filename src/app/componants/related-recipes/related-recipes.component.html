@@ -1,0 +1,9 @@
+<div *ngIf="recipes && recipes.length > 0">
+  <div class="container my-4">
+    <carousel [cellWidth]="260" [height]="455" [autoplay]="false">
+      <div class="carousel-cell" *ngFor="let recipe of recipes">
+        <app-recipe [recipe]="recipe"></app-recipe>
+      </div>
+    </carousel>
+  </div>
+</div>
