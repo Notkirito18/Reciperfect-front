@@ -57,8 +57,7 @@
         class="profile-pic"
         [ngClass]="scrolled ? 'profile-pic-scroll' : ''"
       >
-        <img src="../../../assets/bg2.jpg" alt="profile-pic" />
-        <span class="small-arrow"></span>
+        <img [src]="profilePic" alt="profile-pic" />
       </div>
       <mat-menu #lgmenu="matMenu" xPosition="before">
         <button mat-menu-item class="mat-menu-item" [routerLink]="'/profile'">
@@ -125,8 +124,8 @@
     <mat-menu #smmenu="matMenu" xPosition="before">
       <div mat-menu-item disabled class="mat-menu-item">
         <div class="sm-profile-pic">
-          <img src="../../../assets/bg.jpg" alt="" />
-          <span> Username </span>
+          <img [src]="profilePic" alt="" />
+          <span> {{ user.username }} </span>
         </div>
       </div>
       <button mat-menu-item class="mat-menu-item" [routerLink]="'/profile'">

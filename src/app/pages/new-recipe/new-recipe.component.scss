@@ -1,6 +1,6 @@
 .landing {
   position: relative;
-  background: url(../../../assets/bg2.jpg);
+  background: url("https://res.cloudinary.com/notkirito18/image/upload/v1657051057/assets/bg2_xnqdev.jpg");
   background-size: cover;
 
   .container {
@@ -145,6 +145,44 @@
   .submit-btn[disabled]:hover {
     background-color: var(--green);
   }
+
+  .tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    .tag {
+      font-size: 14px;
+      font-weight: 500;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0px 16px;
+      border: 1px solid var(--green);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 200ms ease
+    }
+
+    .tag:hover {
+      background-color: var(--green);
+      color: white;
+    }
+    .selected-tag{
+      background-color: var(--green);
+      color: white;
+    }
+    .more-tag{
+      background-color: rgb(170, 170, 170);
+      color: white;
+      border: 1px solid rgba(0, 0, 0, 0)
+    }
+    .more-tag:hover {
+      background-color: white;
+      color: black;
+      border: 1px solid black
+    }
+
+  }
 }
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
@@ -269,7 +307,9 @@
       font-weight: bold;
     }
   }
+
 }
+
 
 @media only screen and (max-width: 767px) {
   .landing {

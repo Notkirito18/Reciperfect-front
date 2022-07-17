@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GlobalsService } from './services/globals.service';
+import { CustomIconsService } from './services/custom-icons.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private globals: GlobalsService,
+    public customIconsLoader: CustomIconsService,
     private snackBar: MatSnackBar
   ) {}
   notifier$!: Subscription;

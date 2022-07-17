@@ -1,6 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
+import { tags } from 'src/app/Constatns';
 import { capitalCase, searchClass } from 'src/app/helpers';
 import { Recipe } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -19,16 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) {}
 
-  tags = [
-    'vegan',
-    'fast',
-    'dessert ',
-    'healthy',
-    'glutenfree ',
-    'breakfast',
-    'family dinner',
-    'Low calories',
-  ];
+  tags = tags;
 
   mediaSubscription!: Subscription;
   screenSize = 'lg';
@@ -38,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   filteredRecipes: Recipe[] = [];
   pageSliceRecipes: Recipe[] = [];
   searchFilter!: string;
+  selectedTags: string[] = [];
 
   //*onInit
   ngOnInit(): void {
@@ -71,13 +64,40 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   searchChange() {
+    this.selectedTags = [];
+    this.filteredRecipes = this.recipes;
     this.filteredRecipes = this.recipes.filter((item) => {
       return item.name.toLowerCase().includes(this.searchFilter.toLowerCase());
     });
     this.pageSliceRecipes = this.filteredRecipes.slice(0, 12);
   }
+  //*tag selecting
+  tagFilter(tag: string, add: boolean) {
+    this.searchFilter = '';
+    this.filteredRecipes = this.recipes;
+    if (add) {
+      this.selectedTags.push(tag);
+      console.log(this.selectedTags);
+    } else {
+      this.selectedTags = this.selectedTags.filter((item) => item != tag);
+      console.log(this.selectedTags);
+    }
+    this.filteredRecipes = this.recipes.filter((item) => {
+      let result = true;
+      this.selectedTags.forEach((tag) => {
+        if (!item.tags.includes(tag)) {
+          result = false;
+        }
+      });
+      return result;
+    });
+    console.log(this.filteredRecipes);
+
+    this.pageSliceRecipes = this.filteredRecipes.slice(0, 12);
+  }
   //*page change
   onPageChange(e: any) {
+    this.filteredRecipes = this.recipes;
     const startIndex = e.pageIndex * e.pageSize;
     let endIndex = startIndex + e.pageSize;
     if (endIndex > this.filteredRecipes.length) {

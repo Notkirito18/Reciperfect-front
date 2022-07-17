@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+
 import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from 'src/app/models';
@@ -123,7 +125,6 @@ export class AuthService {
         }
       );
       snack.onAction().subscribe(() => {
-        //todo renew login
         if (this.expirationTimer) {
           clearTimeout(this.expirationTimer);
         }
@@ -146,13 +147,5 @@ export class AuthService {
     }
     this.expirationTimer = null;
     this.router.navigate(['/login']);
-  }
-
-  getUserName(id: string) {
-    return this.http.get<{ user: User }>(environment.url + 'api/users/' + id, {
-      headers: {
-        key: environment.serverKey,
-      },
-    });
   }
 }

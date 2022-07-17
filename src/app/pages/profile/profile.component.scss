@@ -1,0 +1,184 @@
+.container{
+  padding-top: 80px;
+  .title{
+    font-size: 42px;
+    font-weight: bold;
+    margin: 10px 0px;
+  }
+  .form-container{
+    position: relative;
+    .input,
+      .submit-btn {
+        display: block;
+        padding: 11px 16px;
+        border-radius: 3px;
+        width: 100%;
+        background-color: var(--grey);
+        border: 2px solid rgba(255, 255, 255, 0);
+      }
+    .field {
+      position: relative;
+      margin-bottom: 25px;
+      .input-label {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+      }
+      .input:focus {
+        outline: none;
+        border: 2px solid var(--green);
+      }
+
+      input.ng-touched.ng-invalid,
+      textarea.ng-touched.ng-invalid {
+        border: 2px solid var(--red) !important;
+      }
+
+      .input-invalid {
+        font-size: 12px;
+        color: var(--red);
+        position: absolute;
+        left: 15%;
+        bottom: -30px;
+      }
+      .profile-pic-container{
+        text-align: center;
+        padding: 20px;
+        border-radius: 50%;
+        img{
+          border-radius: 50%;
+          width: 250px;
+          height: 250px;
+          object-fit: cover;
+          outline: 5px solid var(--green);
+          outline-offset: 3px;
+          cursor: pointer;
+        }
+        .change{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1;
+          color: white;
+          text-decoration: underline;
+          font-weight: bold;
+          display: none;
+        }
+      }
+      .profile-pic-container:hover{
+        .change{
+          display: block;
+        }
+        img{
+          filter: brightness(75%);
+        }
+      }
+    }
+    .socials{
+      .social-lable{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        font-size: 14px;
+        mat-icon[ svgIcon="facebook"]{
+          color: #3d5b99;
+        }
+      }
+      input{
+        display: inline;
+        width: 50%;
+        margin-left: 8px;
+        margin-bottom: 25px;
+      }
+    }
+    .loading {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      .loading-overlay {
+        background: #ffffff70;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+
+      .loading-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 4;
+        font-size: 23px;
+        font-weight: 500;
+        background-color: #0B987ECC;
+        padding: 20px 25px;
+        color: white;
+        border-radius: 20px;
+      }
+    }
+  }
+.submit-section {
+  margin-top: 20px;
+  .submit-btn {
+    background-color: var(--green);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    width: 50%;
+    font-weight: 500;
+  }
+
+  .submit-btn:hover {
+    background-color: var(--lightGreen);
+  }
+
+  .submit-btn:disabled,
+  .submit-btn[disabled] {
+    opacity: 0.5;
+    cursor: unset;
+  }
+
+  .submit-btn:disabled:hover,
+  .submit-btn[disabled]:hover {
+    background-color: var(--green);
+  }
+}
+
+}
+
+@media only screen and (max-width: 767px) {
+  .container {
+    .title {
+      font-size: 24px !important;
+    }
+    .submit-btn {
+      width: 100% !important;
+    }
+    .socials{
+      .input{
+        margin: 10px 0px 25px 0px !important ;
+        width: 100% !important;
+      }
+    }
+    .profile-pic-container {
+      img{
+        width: 160px !important;
+        height: 160px !important;
+      }
+    }
+  }
+}

@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { tags, unitsNames } from 'src/app/Constatns';
 import { IdGenerator } from 'src/app/helpers';
 import { Ingredient, Recipe } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -31,6 +32,10 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
+  unitsNames = unitsNames;
+  tags = tags;
+  IdGenerator = IdGenerator;
+
   mediaSubscription!: Subscription;
   screenSize = 'lg';
   newRecForm!: FormGroup;
@@ -40,7 +45,8 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
   authToken!: string;
   addingRecipe = false;
   otherUnit: boolean[] = [false];
-  unitsNames = ['KG', 'MG'];
+  selectedTags: string[] = [];
+  showTags: string[] = [];
 
   //*on init
   ngOnInit(): void {
@@ -79,6 +85,8 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
       serving: [null, [Validators.min(1)]],
       servingsYield: [null, [Validators.min(1)]],
     });
+    //*init tags
+    this.showTags = this.tags.slice(0, 5);
   }
 
   //*Form array controls
@@ -118,6 +126,21 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     if (this.mediaSubscription) this.mediaSubscription.unsubscribe();
+  }
+  //*tags selecting
+  selectTag(tag: string) {
+    if (!this.selectedTags.includes(tag)) {
+      this.selectedTags.push(tag);
+    } else {
+      this.selectedTags = this.selectedTags.filter((item) => item != tag);
+    }
+  }
+  moreLessTags(more: boolean) {
+    if (more) {
+      this.showTags = this.tags;
+    } else {
+      this.showTags = this.tags.slice(0, 5);
+    }
   }
   //* images saving
   //files importing
@@ -193,7 +216,8 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
       formValue.prepTime,
       formValue.cookTime,
       formValue.serving,
-      formValue.servingsYield
+      formValue.servingsYield,
+      this.selectedTags
     );
     this.addingRecipe = true;
 
@@ -223,16 +247,12 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
   // other unit
   otherUnitSelected(event: any, index: number) {
     const value = event.target?.value.toString();
-
     if (value == '') {
       this.otherUnit[index] = true;
-    } else {
-      //TODO make the brands array corespond to the selected category
     }
   }
 
   backToSelectUnit(index: number) {
     this.otherUnit[index] = false;
   }
-  IdGenerator = IdGenerator;
 }

@@ -22,7 +22,12 @@
 <!--* tags filters  -->
 <section class="recipes-display" *ngIf="recipes; else loading">
   <div class="filters-bar">
-    <span *ngFor="let tag of tags">{{ capitalCase(tag) }}</span>
+    <span
+      [ngClass]="selectedTags.includes(tag) ? 'active' : ''"
+      (click)="tagFilter(tag, !selectedTags.includes(tag))"
+      *ngFor="let tag of tags"
+      >{{ capitalCase(tag) }}</span
+    >
   </div>
   <!--* recipes  -->
   <div class="container">
@@ -36,6 +41,7 @@
     </div>
     <!--* paginator  -->
     <mat-paginator
+      *ngIf="filteredRecipes.length > 0"
       [length]="filteredRecipes.length"
       [pageSize]="12"
       [pageSizeOptions]="[12, 24]"

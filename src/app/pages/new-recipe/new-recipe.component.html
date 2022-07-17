@@ -323,6 +323,37 @@
       </div>
     </div>
 
+    <!--* tags  -->
+    <div class="input-label">
+      Tags
+      <tooltip
+        message="select tags that are related to your recipe (optional)"
+      ></tooltip>
+    </div>
+    <div class="tags">
+      <span
+        *ngFor="let tag of showTags"
+        (click)="selectTag(tag)"
+        class="tag"
+        [ngClass]="selectedTags.includes(tag) ? 'selected-tag' : ''"
+      >
+        {{ tag }}
+      </span>
+      <span
+        *ngIf="tags.length != showTags.length"
+        class="tag more-tag"
+        (click)="moreLessTags(true)"
+      >
+        More
+      </span>
+      <span
+        *ngIf="tags.length == showTags.length"
+        class="tag more-tag"
+        (click)="moreLessTags(false)"
+      >
+        Less
+      </span>
+    </div>
     <!--* public or private recipe / submit  -->
     <div class="submit-section">
       <div class="private">

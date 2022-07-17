@@ -1,1 +1,173 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="title">Edit Profile</div>
+  <div class="form-container">
+    <div class="loading" *ngIf="loading">
+      <div class="loading-overlay"></div>
+      <div class="loading-content">
+        <div>Editing Profile</div>
+        <div class="snippet" data-title=".dot-flashing">
+          <div class="stage">
+            <div class="dot-flashing"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form
+      [formGroup]="userForm"
+      #formDirective="ngForm"
+      (submit)="onSave(userForm.value, formDirective)"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <!--*Username  -->
+          <div class="field">
+            <div class="input-label">
+              Username
+              <tooltip message="Username"></tooltip>
+            </div>
+            <input
+              class="input"
+              formControlName="username"
+              type="text"
+              placeholder="Username"
+            />
+          </div>
+          <!--*Email  -->
+          <div class="field">
+            <div class="input-label">
+              Email
+              <tooltip message="Email"></tooltip>
+            </div>
+            <input
+              class="input"
+              formControlName="email"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
+          <!--*Description  -->
+          <div class="field">
+            <div class="input-label">
+              Describe yourself
+              <tooltip message="Describe yourself in one sentence"></tooltip>
+            </div>
+            <input
+              class="input"
+              type="text"
+              formControlName="description"
+              placeholder="I am the biggest dog lover"
+            />
+          </div>
+          <!--* birth date  -->
+          <div class="field">
+            <div class="input-label">
+              Birth date
+              <tooltip
+                message="Enter your birth date (you need to be at least 13 years old)"
+              ></tooltip>
+            </div>
+            <div style="display: flex">
+              <input
+                class="input"
+                matInput
+                [max]="maxDate"
+                formControlName="birthDate"
+                [matDatepicker]="picker"
+                placeholder="MM/DD/YYYY"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+            </div>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!--*Profile pic  -->
+          <div class="field">
+            <div class="input-label">
+              Profile picture
+              <tooltip message="Upload your profile picture"></tooltip>
+            </div>
+            <div class="profile-pic-container">
+              <input
+                class="input"
+                type="file"
+                #fileInput
+                style="display: none"
+                accept="image/*"
+                (change)="onImageImport($event)"
+              />
+              <div class="change" (click)="fileInput.click()">Change</div>
+              <img (click)="fileInput.click()" [src]="imageSrc" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--*Socials  -->
+      <div class="field socials">
+        <div class="input-label">
+          Socials
+          <tooltip message="Add your socials to your profile"></tooltip>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="social-lable">
+              <mat-icon svgIcon="facebook"></mat-icon>
+              <span>Facebook</span>
+            </div>
+            <input
+              class="input"
+              formControlName="facebook"
+              type="text"
+              placeholder="Facebook profile"
+            />
+          </div>
+          <div class="col-sm-6">
+            <div class="social-lable">
+              <mat-icon svgIcon="instagram"></mat-icon>
+              <span>Instagram</span>
+            </div>
+            <input
+              class="input"
+              formControlName="instagram"
+              type="text"
+              placeholder="Instagram profile"
+            />
+          </div>
+          <div class="col-sm-6">
+            <div class="social-lable">
+              <mat-icon svgIcon="pinterest"></mat-icon>
+              <span>Pinterest</span>
+            </div>
+            <input
+              class="input"
+              formControlName="pinterest"
+              type="text"
+              placeholder="Pinterest name"
+            />
+          </div>
+          <div class="col-sm-6">
+            <div class="social-lable">
+              <mat-icon>language</mat-icon>
+              <span>Personal website</span>
+            </div>
+            <input
+              class="input"
+              type="text"
+              formControlName="personalWebsite"
+              placeholder="Full website"
+            />
+          </div>
+        </div>
+      </div>
+      <!--*submit  -->
+      <div class="submit-section">
+        <button type="submit" class="submit-btn" [disabled]="!userForm.valid">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

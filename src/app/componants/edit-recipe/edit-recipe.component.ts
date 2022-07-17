@@ -10,8 +10,9 @@ import {
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { tags, unitsNames } from 'src/app/Constatns';
 import { IdGenerator } from 'src/app/helpers';
 import { Ingredient, Recipe } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -36,7 +37,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  unitsNames = ['KG', 'MG'];
+  unitsNames = unitsNames;
+  tags = tags;
 
   loading = true;
   editingRecipe = false;
@@ -48,6 +50,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
   otherUnit: boolean[] = [];
   recipeToEdit!: Recipe;
   recipeId!: string;
+  selectedTags: string[] = [];
+
   //*images variables
   imagesSrcs: { localId: string; url: string }[] = [];
   imagesFiles: { localId: string; file: File }[] = [];
@@ -64,6 +68,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     );
     //header
     this.globals.headerTransparency.next(true);
+
     //getting creator id
     this.authService.user.subscribe((user) => {
       this.authToken = user._token;
@@ -98,9 +103,6 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
                 })
               );
             }
-            console.log(recipe.ingredients.map((item: any) => item.unit));
-            console.log(this.unitsNames);
-
             for (let i = 0; i < recipe.instructions.length; i++) {
               instructionsArray.push(
                 this.fb.group({
@@ -123,6 +125,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
               serving: [recipe.serving, [Validators.min(1)]],
               servingsYield: [recipe.servingsYield, [Validators.min(1)]],
             });
+            //*init tags
+            this.selectedTags = recipe.tags;
 
             //*initializing images
             this.imagesSrcs = recipe.imagesSrcs.map((item: string) => {
@@ -189,8 +193,16 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     }
     if (type == 'inst') this.instCtrl.controls.splice(index, 1);
   }
+  //*tags selecting
+  selectTag(tag: string) {
+    if (!this.selectedTags.includes(tag)) {
+      this.selectedTags.push(tag);
+    } else {
+      this.selectedTags = this.selectedTags.filter((item) => item != tag);
+    }
+  }
 
-  //files importing
+  //*files importing
   onFilesImport(event: Event) {
     const files = (event.target as HTMLInputElement)!.files;
     const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg'];
@@ -255,11 +267,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
   }
   otherUnitSelected(event: any, index: number) {
     const value = event.target?.value.toString();
-
     if (value == '') {
       this.otherUnit[index] = true;
-    } else {
-      //TODO make the brands array corespond to the selected category
     }
   }
   backToSelectUnit(index: number) {
@@ -297,7 +306,8 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
       formValue.prepTime,
       formValue.cookTime,
       formValue.serving,
-      formValue.servingsYield
+      formValue.servingsYield,
+      this.selectedTags
     );
     console.log('share', editedRecipe.share);
 

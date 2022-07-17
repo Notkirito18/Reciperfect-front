@@ -4,7 +4,8 @@ export class User {
     public _id: string,
     private _token: string,
     private _tokenExpirationDate: Date,
-    public username: string
+    public username: string,
+    public profile?: Profile
   ) {}
 
   get token() {
@@ -14,6 +15,16 @@ export class User {
       return this._token;
     }
   }
+}
+
+export interface Profile {
+  profilePic?: string;
+  birthDate?: Date;
+  description?: string;
+  facebook?: string;
+  instagram?: string;
+  pinterest?: string;
+  personalWebsite?: string;
 }
 
 export class Recipe {
@@ -31,6 +42,7 @@ export class Recipe {
     public cookTime: number,
     public serving: number,
     public servingsYield: number,
+    public tags: string[],
     public ratings?: Rating[],
     public likes?: string[],
     public _id?: string

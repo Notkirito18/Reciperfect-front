@@ -14,6 +14,7 @@ export class RelatedRecipesComponent implements OnInit {
   recipes!: Recipe[];
 
   ngOnInit(): void {
+    //*getting recipes
     this.recipesServie.getRecipes().subscribe(
       (recipes) => {
         this.recipes = recipes;

@@ -9,6 +9,7 @@ import { Recipe, User } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-recipe-page',
@@ -20,6 +21,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     private recipesService: RecipesService,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private usersService: UsersService,
     private globals: GlobalsService,
     private dialog: MatDialog
   ) {}
@@ -45,7 +47,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         this.recipesService.getRecipe(this.id, user?._id).subscribe(
           (recipe) => {
             this.recipe = recipe;
-            this.myRecipe = recipe.creatorId == user._id;
+            this.myRecipe = recipe.creatorId == user?._id;
             this.imagesPaths = recipe.imagesSrcs.map((item: string) => {
               return { path: item };
             });
@@ -64,8 +66,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
               this.liked = recipe.likes.includes(this.user._id);
             }
             //*getting username
-            this.authService.getUserName(recipe.creatorId).subscribe(
-              ({ user }) => {
+            this.usersService.getUser(recipe.creatorId).subscribe(
+              (user) => {
                 this.creatorUsername = user.username;
               },
               //* error handling
@@ -139,7 +141,12 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     } else {
       const dialogRef = this.dialog.open(RateDialogComponent, {
         width: '600px',
-        data: { score: 5 },
+        data: {
+          rated: this.rated,
+          rating: this.recipe.ratings?.filter(
+            (item: any) => item.ratorId == this.user._id
+          )[0]?.ratingScore,
+        },
       });
       dialogRef.afterClosed().subscribe((data) => {
         if (data) {
@@ -179,6 +186,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
                 );
                 this.rating = median(ratingScores);
                 this.recipe = updatedRecipe;
+                this.rated = true;
               },
               (error) => {
                 this.globals.notification.next({

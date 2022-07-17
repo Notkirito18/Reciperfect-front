@@ -12,10 +12,13 @@ export class RateDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<RateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { score: number } //TODO FIX DATA
+    @Inject(MAT_DIALOG_DATA) public data: { rated: boolean; rating: number }
   ) {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.data.rated) {
+      this.rating = this.data.rating;
+    }
+  }
 
   rateSelected(rate: number) {
     this.rating = rate;

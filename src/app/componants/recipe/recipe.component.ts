@@ -37,7 +37,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
     //* getting user
     this.user$ = this.authService.user.subscribe((user) => {
       this.user = user;
-      this.myRecipe = this.recipe.creatorId == user._id;
+      this.myRecipe = this.recipe.creatorId == user?._id;
     });
     //* setting rating
     if (this.recipe.ratings) {
@@ -108,12 +108,18 @@ export class RecipeComponent implements OnInit, OnDestroy {
     } else {
       const dialogRef = this.dialog.open(RateDialogComponent, {
         width: '600px',
-        data: { score: 5 },
+        data: {
+          rated: this.rated,
+          rating: this.recipe.ratings?.filter(
+            (item: any) => item.ratorId == this.user._id
+          )[0]?.ratingScore,
+        },
       });
       dialogRef.afterClosed().subscribe((data) => {
         if (data) {
           let newRatings;
           let newRecipe;
+          console.log('rated?', this.rated);
           if (this.rated) {
             //* changing previous rating
             newRatings = this.recipe.ratings?.map((item) => {
@@ -148,6 +154,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
                 );
                 this.rating = median(ratingScores);
                 this.recipe = updatedRecipe;
+                this.rated = true;
               },
               (error) => {
                 this.globals.notification.next({
