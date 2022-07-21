@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IdGenerator } from 'src/app/helpers';
-import { User } from 'src/app/models';
+import { IdGenerator, inputToLink } from 'src/app/helpers';
+import { Profile, User } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { UsersService } from 'src/app/services/users/users.service';
@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {}
   IdGenerator = IdGenerator;
+  inputToLink = inputToLink;
 
   user!: User;
   userForm!: FormGroup;
@@ -46,33 +47,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     //getting user info
     this.user$ = this.authService.user.subscribe(
-      (myUser) => {
-        this.usersService.getUser(myUser._id).subscribe(
-          (user: User) => {
-            console.log(user);
-            this.user = user;
-            this.imageSrc = user.profile?.profilePic
-              ? user.profile?.profilePic
-              : 'https://res.cloudinary.com/notkirito18/image/upload/v1657645840/assets/placeholder-profile_u81dsb.jpg';
-            //*initialising form
-            this.userForm = this.fb.group({
-              username: user.username,
-              email: user.email,
-              description: user.profile?.description,
-              facebook: user.profile?.facebook,
-              instagram: user.profile?.instagram,
-              pinterest: user.profile?.pinterest,
-              personalWebsite: user.profile?.personalWebsite,
-              birthDate: user.profile?.birthDate,
-            });
-          },
-          (error) => {
-            this.globals.notification.next({
-              msg: error.msg ? error.msg : 'error occured',
-              type: 'error',
-            });
-          }
-        );
+      (user) => {
+        this.user = user;
+        this.imageSrc = user.profile?.profilePic
+          ? user.profile?.profilePic
+          : 'https://res.cloudinary.com/notkirito18/image/upload/v1658421093/assets/avth2x05glsetigstvdk_q6f4bi.jpg';
+        //*initialising form
+        this.userForm = this.fb.group({
+          username: user.username,
+          email: user.email,
+          description: user.profile?.description,
+          facebook: user.profile?.facebook,
+          instagram: user.profile?.instagram,
+          pinterest: user.profile?.pinterest,
+          personalWebsite: user.profile?.personalWebsite,
+          birthDate: user.profile?.birthDate,
+        });
       },
       (error) => {
         this.globals.notification.next({
@@ -93,7 +83,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           const reader = new FileReader();
           reader.onload = () => {
             this.imageSrc = reader.result as string;
-            console.log('this.imageSrc', this.imageSrc);
           };
           reader.readAsDataURL(files[i]);
           this.imageFile = files[i];
@@ -123,13 +112,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         profilePic: this.imageSrc,
         birthDate,
         description,
-        facebook,
-        instagram,
-        pinterest,
+        facebook: inputToLink(facebook, 'face'),
+        instagram: inputToLink(instagram, 'insta'),
+        pinterest: inputToLink(pinterest, 'pin'),
         personalWebsite,
       },
       profilePicFile: this.imageFile,
     };
+
     this.loading = true;
     this.usersService
       .editUser(
@@ -143,7 +133,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           this.loading = false;
-          console.log(res);
+          this.authService.user.next(res);
+          const userData: {
+            email: string;
+            _id: string;
+            _token: string;
+            _tokenExpirationDate: string;
+            username: string;
+            profile: Profile;
+          } = JSON.parse(localStorage.getItem('userData') || '{}');
+          const user = new User(
+            res.email,
+            res._id,
+            userData._token,
+            new Date(userData._tokenExpirationDate),
+            res.username,
+            res.profile
+          );
+          localStorage.setItem('userData', JSON.stringify(user));
         },
         (error) => {
           this.loading = false;

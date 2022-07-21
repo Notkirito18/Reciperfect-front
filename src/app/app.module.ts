@@ -8,20 +8,20 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { HeaderComponent } from './componants/header/header.component';
-import { RecipeComponent } from './componants/recipe/recipe.component';
+import { HeaderComponent } from './components/header/header.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NewRecipeComponent } from './pages/new-recipe/new-recipe.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
-import { RateDialogComponent } from './componants/rate-dialog/rate-dialog.component';
-import { LoginDialogComponent } from './componants/login-dialog/login-dialog.component';
-import { TooltipComponent } from './componants/tooltip/tooltip.component';
-import { RelatedRecipesComponent } from './componants/related-recipes/related-recipes.component';
-import { DeleteConfirmComponent } from './componants/delete-confirm/delete-confirm.component';
-import { EditRecipeComponent } from './componants/edit-recipe/edit-recipe.component';
+import { RateDialogComponent } from './components/rate-dialog/rate-dialog.component';
+import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
+import { RelatedRecipesComponent } from './components/related-recipes/related-recipes.component';
+import { DeleteConfirmComponent } from './components/delete-confirm/delete-confirm.component';
+import { EditRecipeComponent } from './pages/edit-recipe/edit-recipe.component';
 
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 //* materials
@@ -36,6 +36,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MyspaceComponent } from './pages/myspace/myspace.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     RelatedRecipesComponent,
     EditRecipeComponent,
     DeleteConfirmComponent,
+    MyspaceComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

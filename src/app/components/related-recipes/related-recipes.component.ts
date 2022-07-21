@@ -12,12 +12,16 @@ export class RelatedRecipesComponent implements OnInit {
   constructor(private recipesServie: RecipesService) {}
 
   recipes!: Recipe[];
+  loading: boolean = true;
 
   ngOnInit(): void {
     //*getting recipes
     this.recipesServie.getRecipes().subscribe(
       (recipes) => {
         this.recipes = recipes;
+        if (this.recipes.length > 0) {
+          this.loading = false;
+        }
       },
       (error) => {
         console.log(error);

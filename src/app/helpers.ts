@@ -85,6 +85,67 @@ export function IdGenerator(): string {
   );
 }
 
+export function ageFromBd(bd: Date | undefined): string {
+  if (bd) {
+    const date = new Date(bd);
+    var diff_ms = Date.now() - date.getTime();
+    var age_dt = new Date(diff_ms);
+
+    return Math.abs(age_dt.getUTCFullYear() - 1970).toString() + ' years old';
+  } else {
+    return '';
+  }
+}
+
+export function inputToLink(
+  input: string,
+  site: 'face' | 'insta' | 'pin'
+): string {
+  let link = '';
+  if (input[input.length - 1] == '/') {
+    link = input.slice(0, input.length - 1);
+  } else {
+    link = input;
+  }
+  if (input.includes(' ')) {
+    link = input.split(' ').join('.');
+  }
+  if (link.length > 0) {
+    if (
+      link.includes('facebook.com') ||
+      link.includes('instagram.com') ||
+      link.includes('pinterest.com')
+    ) {
+      if (site == 'face') {
+        return (
+          'https://www.facebook.com/' +
+          link.split('/')[link.split('/').length - 1]
+        );
+      } else if (site == 'insta') {
+        return (
+          'https://www.instagram.com/' +
+          link.split('/')[link.split('/').length - 1]
+        );
+      } else {
+        return (
+          'https://www.pinterest.com/' +
+          link.split('/')[link.split('/').length - 1]
+        );
+      }
+    } else {
+      if (site == 'face') {
+        return 'https://www.facebook.com/' + link;
+      } else if (site == 'insta') {
+        return 'https://www.instagram.com/' + link;
+      } else {
+        return 'https://www.pinterest.com/' + link;
+      }
+    }
+  } else {
+    return link;
+  }
+}
+
 export function median(arr: number[]) {
   const mid = Math.floor(arr.length / 2),
     nums = [...arr].sort((a, b) => {

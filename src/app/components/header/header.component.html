@@ -5,7 +5,12 @@
   <!--*Logo  -->
   <div class="row">
     <div class="col-md-2 col-3">
-      <div [routerLink]="'/'" class="logo">Logo</div>
+      <div [routerLink]="'/'" class="logo">
+        <img
+          src="https://res.cloudinary.com/notkirito18/image/upload/v1658422319/assets/logo_sm_zkduta.png"
+          alt="logo"
+        />
+      </div>
     </div>
     <!--*links large view  -->
     <div
@@ -41,6 +46,7 @@
       <span
         *ngIf="loggedIn"
         class="link"
+        [routerLink]="'/my'"
         [ngClass]="scrolled ? 'link-scroll' : ''"
         >My Space</span
       >
@@ -99,7 +105,10 @@
     </div>
     <!--*Links area when logged in  -->
     <div *ngIf="loggedIn" class="col-3 sm-link-container">
-      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''"
+      <span
+        class="link"
+        [routerLink]="'/my'"
+        [ngClass]="scrolled ? 'link-scroll' : ''"
         >My Space</span
       >
     </div>

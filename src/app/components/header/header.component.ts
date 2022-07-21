@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           (userObject) => {
             this.profilePic = userObject.profile?.profilePic
               ? userObject.profile?.profilePic
-              : 'https://res.cloudinary.com/notkirito18/image/upload/v1657645840/assets/placeholder-profile_u81dsb.jpg';
+              : 'https://res.cloudinary.com/notkirito18/image/upload/v1658421093/assets/avth2x05glsetigstvdk_q6f4bi.jpg';
           },
           (error) => {
             console.log(error);

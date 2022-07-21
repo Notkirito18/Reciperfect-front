@@ -18,7 +18,7 @@ import { Ingredient, Recipe } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
-import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
+import { DeleteConfirmComponent } from '../../components/delete-confirm/delete-confirm.component';
 
 @Component({
   selector: 'app-edit-recipe',

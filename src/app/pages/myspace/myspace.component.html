@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="title-wrapper">
+    <div class="title">Profile</div>
+    <span [routerLink]="'/profile'" class="btn edit"
+      ><mat-icon>manage_accounts</mat-icon>
+      <span>Edit my profile</span>
+    </span>
+  </div>
+  <hr />
+  <div class="profile">
+    <div class="profile-pic-container">
+      <img [src]="user.profile?.profilePic" alt="" />
+    </div>
+    <div>
+      <div class="info">
+        <div class="username">
+          {{ user.username }},
+          <span>{{ ageFromBd(user.profile?.birthDate) }}</span>
+        </div>
+        <div class="description">{{ user.profile?.description }}</div>
+      </div>
+      <div class="contact">
+        <div class="row">
+          <a
+            [href]="user.profile?.facebook"
+            target="_blank"
+            *ngIf="user.profile?.facebook"
+            class="col-sm-6 social-lable"
+          >
+            <mat-icon svgIcon="facebook"></mat-icon>
+            <span>Facebook</span>
+          </a>
+          <a
+            [href]="user.profile?.instagram"
+            target="_blank"
+            *ngIf="user.profile?.instagram"
+            class="col-sm-6 social-lable"
+          >
+            <mat-icon svgIcon="instagram"></mat-icon>
+            <span>instagram</span>
+          </a>
+          <a
+            [href]="user.profile?.pinterest"
+            target="_blank"
+            *ngIf="user.profile?.pinterest"
+            class="col-sm-6 social-lable"
+          >
+            <mat-icon svgIcon="pinterest"></mat-icon>
+            <span>pinterest</span>
+          </a>
+          <a
+            [href]="user.profile?.personalWebsite"
+            target="_blank"
+            *ngIf="user.profile?.personalWebsite"
+            class="col-sm-6 social-lable"
+          >
+            <mat-icon>language</mat-icon>
+            <span>personalWebsite</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="title-wrapper">
+    <div class="title">Your recipes</div>
+    <span [routerLink]="'/new-recipe'" class="btn add"
+      ><mat-icon>add</mat-icon>
+      <span>Add New Recipe</span>
+    </span>
+  </div>
+  <hr />
+  <div *ngIf="myRecipes.length > 0; else norecipes" class="row">
+    <div *ngFor="let recipe of myRecipes" class="col-md-6 col-lg-3">
+      <app-recipe [recipe]="recipe"></app-recipe>
+    </div>
+  </div>
+  <ng-template #norecipes>
+    <div>We couldn't find any recipes that shared</div>
+  </ng-template>
+  <div class="title">Recipes you liked</div>
+  <hr />
+
+  <div *ngIf="likedRecipes.length > 0; else noliked" class="row">
+    <div *ngFor="let recipe of likedRecipes" class="col-md-6 col-lg-3">
+      <app-recipe [recipe]="recipe"></app-recipe>
+    </div>
+  </div>
+  <ng-template #noliked>
+    <div>We couldn't find any recipes that you liked</div>
+  </ng-template>
+</div>

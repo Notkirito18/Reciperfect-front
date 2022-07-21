@@ -32,29 +32,33 @@ export class RecipeComponent implements OnInit, OnDestroy {
   ) {}
 
   @Input() recipe!: Recipe;
+  loading = true;
 
   ngOnInit(): void {
     //* getting user
     this.user$ = this.authService.user.subscribe((user) => {
       this.user = user;
       this.myRecipe = this.recipe.creatorId == user?._id;
-    });
-    //* setting rating
-    if (this.recipe.ratings) {
-      const ratingScores = this.recipe.ratings.map((item) => item.ratingScore);
-      this.rating = median(ratingScores);
-    }
-    //* setting rated
-    if (this.recipe.ratings && this.user)
-      this.rated = this.recipe.ratings
-        ?.map((item: any) => item.ratorId)
-        .includes(this.user._id);
-    //* setting liked
-    if (this.recipe.likes && this.user) {
-      if (this.recipe.likes.includes(this.user._id)) {
-        this.liked = true;
+      //* setting rating
+      if (this.recipe.ratings) {
+        const ratingScores = this.recipe.ratings.map(
+          (item) => item.ratingScore
+        );
+        this.rating = median(ratingScores);
       }
-    }
+      //* setting rated
+      if (this.recipe.ratings && this.user)
+        this.rated = this.recipe.ratings
+          ?.map((item: any) => item.ratorId)
+          .includes(this.user._id);
+      //* setting liked
+      if (this.recipe.likes && this.user) {
+        if (this.recipe.likes.includes(this.user._id)) {
+          this.liked = true;
+        }
+      }
+      this.loading = false;
+    });
   }
   //* going to recipe page
   onCardClick() {

@@ -1,0 +1,19 @@
+<div *ngIf="!loading; else loadingref">
+  <div class="container my-4">
+    <carousel [cellWidth]="260" [height]="455" [autoplay]="false">
+      <div class="carousel-cell" *ngFor="let recipe of recipes">
+        <app-recipe [recipe]="recipe"></app-recipe>
+      </div>
+    </carousel>
+  </div>
+</div>
+<!--*loading spinner  -->
+<ng-template #loadingref>
+  <div class="flex-center loading">
+    <div class="snippet" data-title=".dot-flashing">
+      <div class="stage">
+        <div class="dot-flashing"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

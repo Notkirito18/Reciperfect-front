@@ -1,4 +1,4 @@
-<div class="card" (click)="onCardClick()">
+<div *ngIf="!loading" class="card" (click)="onCardClick()">
   <div
     *ngIf="!myRecipe"
     class="like-btn flex-center"

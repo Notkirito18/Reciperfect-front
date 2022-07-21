@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { User } from 'src/app/models';
+import { Profile, User } from 'src/app/models';
 import { environment } from 'src/environments/environment';
 import { GlobalsService } from '../globals.service';
 
@@ -57,12 +57,15 @@ export class AuthService {
       )
       .pipe(
         tap((result: any) => {
+          console.log('result', result);
+
           this.handleAuth(
             result.body.email,
             result.body._id,
             result.headers.get('authToken'),
             result.headers.get('expires-in'),
-            result.body.username
+            result.body.username,
+            result.body.profile
           );
         })
       );
@@ -74,11 +77,12 @@ export class AuthService {
     _id: string,
     token: string | undefined,
     expIn: number,
-    username: string
+    username: string,
+    profile?: Profile
   ) {
     if (email && token) {
       const expDate = new Date(new Date().getTime() + expIn * 1000);
-      const user = new User(email, _id, token, expDate, username);
+      const user = new User(email, _id, token, expDate, username, profile);
       this.user.next(user);
       this.autoLogout(expIn * 1000);
       localStorage.setItem('userData', JSON.stringify(user));
@@ -92,6 +96,7 @@ export class AuthService {
       _token: string;
       _tokenExpirationDate: string;
       username: string;
+      profile: Profile;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
 
     if (userData) {
@@ -100,7 +105,8 @@ export class AuthService {
         userData._id,
         userData._token,
         new Date(userData._tokenExpirationDate),
-        userData.username
+        userData.username,
+        userData.profile
       );
       if (loadedUser.token) {
         const expirationDuration =

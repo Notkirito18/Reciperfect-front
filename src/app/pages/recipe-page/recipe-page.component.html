@@ -122,6 +122,12 @@
     <div class="sub-title">Recipes you might like</div>
     <app-related-recipes [tags]="['']"></app-related-recipes>
   </section>
+  <hr />
+  <!--* same creator recipes  -->
+  <section>
+    <div class="sub-title">More recipes from {{ creatorUsername }}</div>
+    <app-related-recipes [tags]="['']"></app-related-recipes>
+  </section>
 </div>
 
 <ng-template #loading>

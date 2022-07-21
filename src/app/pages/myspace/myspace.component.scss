@@ -1,0 +1,131 @@
+.container{
+  padding-top:90px ;
+  .profile{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    .profile-pic-container {
+      padding: 20px;
+      border-radius: 50%;
+      img {
+        border-radius: 50%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        outline: 5px solid var(--green);
+        outline-offset: 3px;
+      }
+    }
+    .contact{
+      padding: 20px;
+      .social-lable {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+        padding: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
+        mat-icon[ svgIcon="facebook"] {
+          color: #3d5b99;
+        }
+        mat-icon{
+          overflow: visible !important;
+        }
+      }
+      .social-lable:hover{
+        span{
+          text-decoration: underline;
+        }
+      }
+    }
+    .info{
+      padding: 20px;
+      .username{
+        font-size: 32px;
+        font-weight: bold;
+        span{
+          font-size: 22px;
+          font-weight: 500;
+          color: grey;
+        }
+      }
+      .description{
+        color:grey ;
+        margin-top: 8px;
+      }
+    }
+  }
+
+  .title-wrapper{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .title{
+    font-size: 33px;
+    font-weight: bold;
+    margin: 15px 0px 15px;
+  }
+  hr{
+    background-color: #d9d9d9;
+    height: 2px;
+    margin: 20px 0px 30px;
+    border: none;
+  }
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 45px;
+    color: black;
+    transition: all 300ms ease;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+  .edit{
+    color: rgb(140, 140, 140);
+    border: 2px solid rgb(140, 140, 140);
+  }
+  .edit:hover {
+    background-color: black;
+    border: 2px solid black;
+    color: white;
+  }
+  .add {
+    color: var(--lightGreen);
+    border: 2px solid var(--lightGreen);
+  }
+
+  .add:hover {
+    background-color: var(--green);
+    border: 2px solid var(--green);
+    color: white;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+
+  .profile{
+    gap: 15px !important;
+    .username{
+      font-size: 20px !important;
+    }
+    .profile-pic-container {
+      text-align: center;
+      width: 100%;
+      img {
+        width: 160px !important;
+        height: 160px !important;
+      }
+    }
+  }
+
+}
