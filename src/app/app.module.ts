@@ -19,7 +19,6 @@ import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
 import { RateDialogComponent } from './components/rate-dialog/rate-dialog.component';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
-import { RelatedRecipesComponent } from './components/related-recipes/related-recipes.component';
 import { DeleteConfirmComponent } from './components/delete-confirm/delete-confirm.component';
 import { EditRecipeComponent } from './pages/edit-recipe/edit-recipe.component';
 
@@ -38,6 +37,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MyspaceComponent } from './pages/myspace/myspace.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -54,10 +54,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     RateDialogComponent,
     LoginDialogComponent,
     TooltipComponent,
-    RelatedRecipesComponent,
     EditRecipeComponent,
     DeleteConfirmComponent,
     MyspaceComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

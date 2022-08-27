@@ -3,10 +3,14 @@
 }
 .form-side{
   padding-top: 50px;
-  .logo{
-    text-align: center;
-    margin-bottom: 30px;
-  }
+  .logo {
+      text-align: center;
+      margin-bottom: 30px;
+      height: 90px;
+      img {
+        height: 100%;
+      }
+    }
   .title{
     font-size: 33px;
     font-weight: bold;
@@ -79,37 +83,54 @@
     }
   }
 }
-.gallery-side-container{
+.gallery-side-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  .gallery-side{
+  height: 90vh;
+
+  .gallery-side {
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     gap: 3px 3px;
     grid-template-areas:
       "a b"
       "a b"
       "a d"
       "c d"
-      "c d"
-      "c e"
-      "f e"
-      "f e";
-    height: 95%;
-    img{
+      "c d";
+    height: 90%;
+
+    img {
       object-fit: cover;
       height: 100%;
       width: 100%;
     }
-    .a{grid-area: a;}
-    .b{grid-area: b;}
-    .c{grid-area: c;}
-    .d{grid-area: d;}
-    .e{grid-area: e;}
-    .f{grid-area: f;}
+
+    .a {
+      grid-area: a;
+    }
+
+    .b {
+      grid-area: b;
+    }
+
+    .c {
+      grid-area: c;
+    }
+
+    .d {
+      grid-area: d;
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .logo {
+    height: 60px !important;
+  }
+  .title {
+    font-size: 24px !important;
   }
 }

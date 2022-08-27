@@ -23,7 +23,4 @@ export class RateDialogComponent implements OnInit {
   rateSelected(rate: number) {
     this.rating = rate;
   }
-  onHover(rate: number) {
-    console.log(rate);
-  }
 }

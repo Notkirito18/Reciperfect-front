@@ -11,6 +11,7 @@ import {
   passwordValidator,
   validInput,
 } from 'src/app/helpers';
+import { User } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalsService } from 'src/app/services/globals.service';
 

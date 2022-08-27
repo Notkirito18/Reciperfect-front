@@ -42,7 +42,7 @@ export class AuthService {
             result.body.userId,
             result.headers.get('authToken'),
             parseInt(result.headers.get('expires-in')),
-            result.username
+            result.body.username
           );
         })
       );

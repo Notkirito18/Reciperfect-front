@@ -80,3 +80,7 @@ carousel {
   }
 }
 
+::selection {
+  color: white;
+  background: var(--lightGreen);
+}

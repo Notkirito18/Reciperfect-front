@@ -77,10 +77,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.filteredRecipes = this.recipes;
     if (add) {
       this.selectedTags.push(tag);
-      console.log(this.selectedTags);
     } else {
       this.selectedTags = this.selectedTags.filter((item) => item != tag);
-      console.log(this.selectedTags);
     }
     this.filteredRecipes = this.recipes.filter((item) => {
       let result = true;
@@ -91,7 +89,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
       return result;
     });
-    console.log(this.filteredRecipes);
 
     this.pageSliceRecipes = this.filteredRecipes.slice(0, 12);
   }

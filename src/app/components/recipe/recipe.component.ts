@@ -123,7 +123,6 @@ export class RecipeComponent implements OnInit, OnDestroy {
         if (data) {
           let newRatings;
           let newRecipe;
-          console.log('rated?', this.rated);
           if (this.rated) {
             //* changing previous rating
             newRatings = this.recipe.ratings?.map((item) => {

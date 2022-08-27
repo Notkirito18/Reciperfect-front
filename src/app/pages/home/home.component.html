@@ -21,13 +21,31 @@
 </section>
 <!--* tags filters  -->
 <section class="recipes-display" *ngIf="recipes; else loading">
-  <div class="filters-bar">
+  <!-- <div class="filters-bar">
     <span
       [ngClass]="selectedTags.includes(tag) ? 'active' : ''"
       (click)="tagFilter(tag, !selectedTags.includes(tag))"
       *ngFor="let tag of tags"
       >{{ capitalCase(tag) }}</span
     >
+  </div> -->
+  <div class="container">
+    <carousel
+      [autoplay]="false"
+      class="filters-bar"
+      [height]="80"
+      [cellWidth]="150"
+      [margin]="2"
+      [arrowsOutside]="true"
+    >
+      <div class="carousel-cell" *ngFor="let tag of tags">
+        <span
+          [ngClass]="selectedTags.includes(tag) ? 'active' : ''"
+          (click)="tagFilter(tag, !selectedTags.includes(tag))"
+          >{{ capitalCase(tag) }}</span
+        >
+      </div>
+    </carousel>
   </div>
   <!--* recipes  -->
   <div class="container">
@@ -54,6 +72,14 @@
         No recipes match your search.
       </div>
     </ng-template>
+    <div>
+      <div
+        *ngIf="selectedTags.length > 0 && pageSliceRecipes.length == 0"
+        class="no-recipes"
+      >
+        No recipes match your tags.
+      </div>
+    </div>
   </div>
 </section>
 <ng-template #loading>

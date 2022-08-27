@@ -4,7 +4,10 @@
     {{ recipe.name }}
   </div>
   <div class="by mb-1 mb-md-3">
-    by <b> {{ creatorUsername }} </b>
+    by
+    <span class="creator" (click)="creatorClick()">
+      {{ creatorUser?.username }}
+    </span>
   </div>
   <!--*rating  -->
   <div class="rating">
@@ -118,15 +121,27 @@
   </section>
   <hr />
   <!--* related recipes  -->
-  <section>
+  <section *ngIf="relatedRecipes && relatedRecipes.length > 0">
     <div class="sub-title">Recipes you might like</div>
-    <app-related-recipes [tags]="['']"></app-related-recipes>
+    <div class="container my-4">
+      <carousel [cellWidth]="260" [height]="455" [autoplay]="false">
+        <div class="carousel-cell" *ngFor="let recipe of relatedRecipes">
+          <app-recipe [recipe]="recipe"></app-recipe>
+        </div>
+      </carousel>
+    </div>
+    <hr />
   </section>
-  <hr />
   <!--* same creator recipes  -->
-  <section>
-    <div class="sub-title">More recipes from {{ creatorUsername }}</div>
-    <app-related-recipes [tags]="['']"></app-related-recipes>
+  <section *ngIf="creatorRecipes && creatorRecipes.length > 0">
+    <div class="sub-title">More recipes from {{ creatorUser?.username }}</div>
+    <div class="container my-4">
+      <carousel [cellWidth]="260" [height]="455" [autoplay]="false">
+        <div class="carousel-cell" *ngFor="let recipe of creatorRecipes">
+          <app-recipe [recipe]="recipe"></app-recipe>
+        </div>
+      </carousel>
+    </div>
   </section>
 </div>
 

@@ -5,6 +5,16 @@
     font-weight: bold;
     padding: 15px 0px;
   }
+  .by{
+    .creator{
+      font-weight: bold;
+    }
+    .creator:hover{
+      color: var(--green);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
   .sub-title{
     font-size: 32px;
     font-weight: bold;

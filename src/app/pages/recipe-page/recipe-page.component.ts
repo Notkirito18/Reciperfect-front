@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginDialogComponent } from 'src/app/components/login-dialog/login-dialog.component';
 import { RateDialogComponent } from 'src/app/components/rate-dialog/rate-dialog.component';
-import { median } from 'src/app/helpers';
+import { findCommonElement, median } from 'src/app/helpers';
 import { Recipe, User } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalsService } from 'src/app/services/globals.service';
@@ -30,11 +30,17 @@ export class RecipePageComponent implements OnInit, OnDestroy {
   id!: string;
   recipe!: Recipe | any;
   imagesPaths!: { path: string }[];
-  creatorUsername!: string;
+  creatorUser!: User | undefined;
   rating!: number;
   liked = false;
   rated = false;
   myRecipe = false;
+  creatorRecipes!: Recipe[];
+  relatedRecipes!: Recipe[];
+
+  median = median;
+  findCommonElement = findCommonElement;
+
   ngOnInit(): void {
     //*header
     this.globals.headerTransparency.next(false);
@@ -65,10 +71,29 @@ export class RecipePageComponent implements OnInit, OnDestroy {
             if (recipe.likes && user) {
               this.liked = recipe.likes.includes(this.user._id);
             }
-            //*getting username
+            //*getting user object
             this.usersService.getUser(recipe.creatorId).subscribe(
               (user) => {
-                this.creatorUsername = user.username;
+                this.creatorUser = user;
+                //*getting all recipes
+                this.recipesService
+                  .getRecipes(user?._id)
+                  .subscribe((recipes) => {
+                    //setting creato recipes
+                    this.creatorRecipes = recipes.filter((rec) => {
+                      return (
+                        rec.creatorId == this.creatorUser?._id &&
+                        rec._id != this.recipe._id
+                      );
+                    });
+                    //setting related recipes
+                    this.relatedRecipes = recipes.filter((rec) => {
+                      return (
+                        this.findCommonElement(rec.tags, this.recipe.tags) &&
+                        rec._id != this.recipe._id
+                      );
+                    });
+                  });
               },
               //* error handling
               (error) => {
@@ -199,7 +224,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
       });
     }
   }
-  median = median;
+  creatorClick() {}
+
   ngOnDestroy(): void {
     if (this.user$) this.user$.unsubscribe();
   }
