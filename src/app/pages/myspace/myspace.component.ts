@@ -29,8 +29,6 @@ export class MyspaceComponent implements OnInit {
     this.globals.headerTransparency.next(false);
     //*getting user
     this.user$ = this.authService.user.subscribe((user) => {
-      console.log(user);
-
       this.user = user;
       //*getting recipes
       this.reciepsService.getRecipes().subscribe((recipes) => {

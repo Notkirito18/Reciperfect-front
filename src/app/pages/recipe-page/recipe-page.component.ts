@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginDialogComponent } from 'src/app/components/login-dialog/login-dialog.component';
 import { RateDialogComponent } from 'src/app/components/rate-dialog/rate-dialog.component';
+import { UserDialogComponent } from 'src/app/components/user-dialog/user-dialog.component';
 import { findCommonElement, median } from 'src/app/helpers';
 import { Recipe, User } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -224,7 +225,16 @@ export class RecipePageComponent implements OnInit, OnDestroy {
       });
     }
   }
-  creatorClick() {}
+  creatorClick() {
+    if (this.creatorUser) {
+      this.usersService.getUser(this.creatorUser?._id).subscribe((user) => {
+        this.dialog.open(UserDialogComponent, {
+          width: '400px',
+          data: { user },
+        });
+      });
+    }
+  }
 
   ngOnDestroy(): void {
     if (this.user$) this.user$.unsubscribe();

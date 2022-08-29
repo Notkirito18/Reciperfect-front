@@ -229,7 +229,6 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
           formDirective.resetForm();
           this.addingRecipe = false;
           this.router.navigate(['recipe', addedRecipe._id]);
-          console.log('added', addedRecipe);
         },
         ({ error }) => {
           this.newRecForm.reset();

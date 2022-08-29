@@ -10,6 +10,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RecipePageComponent } from './pages/recipe-page/recipe-page.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MyspaceComponent } from './pages/myspace/myspace.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: 'recipe/:id',
     component: RecipePageComponent,
+  },
+  {
+    path: 'user-page/:id',
+    component: UserPageComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

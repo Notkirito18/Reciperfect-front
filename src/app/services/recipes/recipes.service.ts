@@ -180,9 +180,6 @@ export class RecipesService {
                   return item.slice(0, 4) != 'data';
                 }),
             };
-            console.log('imagesPaths', imagesPaths);
-            console.log('recipeToSend', recipeToSend.imagesSrcs);
-
             return this.http
               .patch<{ recipe: any }>(
                 environment.url + 'api/recipes/write/' + id,

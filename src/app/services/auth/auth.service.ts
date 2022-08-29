@@ -57,8 +57,6 @@ export class AuthService {
       )
       .pipe(
         tap((result: any) => {
-          console.log('result', result);
-
           this.handleAuth(
             result.body.email,
             result.body._id,

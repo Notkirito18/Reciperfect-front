@@ -309,12 +309,10 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
       formValue.servingsYield,
       this.selectedTags
     );
-    console.log('share', editedRecipe.share);
 
     this.editingRecipe = true;
 
     if (this.deletedImages.length > 0) {
-      console.log('delete first');
       this.recipesSercive
         .deleteImages(this.deletedImages, this.authToken, this.userId)
         .pipe(
@@ -331,7 +329,6 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         .subscribe(
           (result) => {
             this.editingRecipe = false;
-            console.log(result);
             this.router.navigate(['recipe', this.recipeId]);
           },
           (error) => {
@@ -351,7 +348,6 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
         .subscribe(
           (result) => {
             this.editingRecipe = false;
-            console.log(result);
             this.router.navigate(['recipe', this.recipeId]);
           },
           (error) => {
