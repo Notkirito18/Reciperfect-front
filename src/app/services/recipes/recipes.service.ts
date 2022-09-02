@@ -201,4 +201,14 @@ export class RecipesService {
         );
     }
   }
+
+  deleteRecipe(recipeId: string, token: string, userDataId: string) {
+    return this.http.delete(environment.url + 'api/recipes/write/' + recipeId, {
+      headers: {
+        key: environment.serverKey,
+        authToken: token,
+        userDataId: userDataId,
+      },
+    });
+  }
 }

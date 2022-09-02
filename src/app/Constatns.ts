@@ -3,7 +3,6 @@ export const tags = [
   'fast',
   'dessert ',
   'healthy',
-  'glutenfree ',
   'breakfast',
   'family dinner',
   'Low calories',

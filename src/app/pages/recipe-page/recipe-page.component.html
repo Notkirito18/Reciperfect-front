@@ -5,7 +5,7 @@
   </div>
   <div class="by mb-1 mb-md-3">
     by
-    <span class="creator" (click)="creatorClick()">
+    <span class="creator" [routerLink]="'../../user-page/' + creatorUser?._id">
       {{ creatorUser?.username }}
     </span>
   </div>
@@ -44,7 +44,28 @@
     <div class="description mb-3">
       {{ recipe.description }}
     </div>
-
+    <!--*actions  -->
+    <div class="actions mb-3">
+      <span (click)="onDelete()" *ngIf="myRecipe" class="btn delete"
+        ><mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </span>
+      <span
+        [routerLink]="'/edit/' + recipe._id"
+        *ngIf="myRecipe"
+        class="btn edit"
+        ><mat-icon>settings</mat-icon>
+        <span>Edit</span>
+      </span>
+      <span *ngIf="!myRecipe" (click)="onRate()" class="btn rate"
+        ><mat-icon>{{ rated ? "star" : "star_outline" }}</mat-icon>
+        <span>Rate</span>
+      </span>
+      <span *ngIf="!myRecipe" (click)="onLike()" class="btn save"
+        ><mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon>
+        <span>{{ liked ? "Unsave" : "Save" }}</span>
+      </span>
+    </div>
     <div class="row">
       <!--*gallery  -->
       <div class="col-lg-9 gallery">
@@ -59,13 +80,31 @@
       </div>
       <div class="col-lg-3">
         <!--*info  -->
-        <div class="info">
+        <div
+          *ngIf="
+            recipe.prepTime ||
+            recipe.cookTime ||
+            recipe.serving ||
+            recipe.servingsYield
+          "
+          class="info"
+        >
           <div class="time-icon"><mat-icon>schedule</mat-icon></div>
-          <div><b> Prep: </b> {{ recipe.prepTime }}mins</div>
-          <div><b> Cook: </b> {{ recipe.cookTime }}mins</div>
-          <div><b> Total: </b> {{ recipe.cookTime + recipe.prepTime }}mins</div>
-          <div><b> Serving: </b> {{ recipe.serving }}</div>
-          <div><b> Yield: </b> {{ recipe.servingsYield }}</div>
+          <div *ngIf="recipe.prepTime">
+            <b> Prep: </b> {{ recipe.prepTime }}mins
+          </div>
+          <div *ngIf="recipe.cookTime">
+            <b> Cook: </b> {{ recipe.cookTime }}mins
+          </div>
+          <div *ngIf="recipe.prepTime && recipe.cookTime">
+            <b> Total: </b> {{ recipe.cookTime + recipe.prepTime }}mins
+          </div>
+          <div *ngIf="recipe.serving">
+            <b> Serving: </b> {{ recipe.serving }}
+          </div>
+          <div *ngIf="recipe.servingsYield">
+            <b> Yield: </b> {{ recipe.servingsYield }}
+          </div>
         </div>
       </div>
     </div>
@@ -78,7 +117,7 @@
     <div class="ingredients">
       <div *ngFor="let ing of recipe.ingredients; let i = index">
         <div class="ing mb-4">
-          {{ ing.amount + " " + ing.unit + "s " + ing.name }}
+          {{ writeIngredient(ing.amount, ing.unit, ing.name) }}
         </div>
       </div>
     </div>
@@ -100,24 +139,6 @@
         </div>
       </div>
     </div>
-    <!--*actions  -->
-    <div class="actions">
-      <span
-        [routerLink]="'/edit/' + recipe._id"
-        *ngIf="myRecipe"
-        class="btn edit"
-        ><mat-icon>settings</mat-icon>
-        <span>Edit</span>
-      </span>
-      <span *ngIf="!myRecipe" (click)="onRate()" class="btn rate"
-        ><mat-icon>{{ rated ? "star" : "star_outline" }}</mat-icon>
-        <span>Rate</span>
-      </span>
-      <span *ngIf="!myRecipe" (click)="onLike()" class="btn save"
-        ><mat-icon>{{ liked ? "favorite" : "favorite_outline" }}</mat-icon>
-        <span>{{ liked ? "Unsave" : "Save" }}</span>
-      </span>
-    </div>
   </section>
   <hr />
   <!--* related recipes  -->
@@ -134,7 +155,15 @@
   </section>
   <!--* same creator recipes  -->
   <section *ngIf="creatorRecipes && creatorRecipes.length > 0">
-    <div class="sub-title">More recipes from {{ creatorUser?.username }}</div>
+    <div class="sub-title">
+      More recipes from
+      <span
+        class="creator"
+        [routerLink]="'../../user-page/' + creatorUser?._id"
+      >
+        {{ creatorUser?.username }}
+      </span>
+    </div>
     <div class="container my-4">
       <carousel [cellWidth]="260" [height]="455" [autoplay]="false">
         <div class="carousel-cell" *ngFor="let recipe of creatorRecipes">

@@ -11,7 +11,7 @@
     *ngIf="myRecipe"
     class="edit-btn flex-center"
     stop-click-propagation
-    [routerLink]="'edit/' + recipe._id"
+    [routerLink]="['/', 'edit', recipe._id]"
   >
     <mat-icon>edit</mat-icon>
   </div>

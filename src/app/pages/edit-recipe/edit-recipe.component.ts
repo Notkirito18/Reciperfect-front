@@ -31,7 +31,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
     private mediaObserver: MediaObserver,
     private globals: GlobalsService,
     private authService: AuthService,
-    private recipesSercive: RecipesService,
+    private recipesService: RecipesService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router
@@ -75,7 +75,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
       this.userId = user._id;
       this.route.params.subscribe((params) => {
         this.recipeId = params['id'];
-        this.recipesSercive.getRecipe(this.recipeId, user._id).subscribe(
+        this.recipesService.getRecipe(this.recipeId, user._id).subscribe(
           (recipe) => {
             this.recipeToEdit = recipe;
             //*initializing form arrays
@@ -303,21 +303,21 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
       !formValue.share,
       this.userId,
       new Date(),
+      this.selectedTags,
       formValue.prepTime,
       formValue.cookTime,
       formValue.serving,
-      formValue.servingsYield,
-      this.selectedTags
+      formValue.servingsYield
     );
 
     this.editingRecipe = true;
 
     if (this.deletedImages.length > 0) {
-      this.recipesSercive
+      this.recipesService
         .deleteImages(this.deletedImages, this.authToken, this.userId)
         .pipe(
           mergeMap((deletedImagesResult) => {
-            return this.recipesSercive.updateRecipe(
+            return this.recipesService.updateRecipe(
               this.recipeId,
               editedRecipe,
               this.authToken,
@@ -337,7 +337,7 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
           }
         );
     } else {
-      this.recipesSercive
+      this.recipesService
         .updateRecipe(
           this.recipeId,
           editedRecipe,
@@ -356,6 +356,34 @@ export class EditRecipeComponent implements OnInit, OnDestroy {
           }
         );
     }
+  }
+  onDelete() {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      width: '400px',
+      data: { msg: 'Are you sure you want to delete this Recipe ?' },
+    });
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data && data.confirm) {
+        this.recipesService
+          .deleteRecipe(this.recipeId, this.authToken, this.userId)
+          .subscribe(
+            (result: any) => {
+              this.globals.notification.next({
+                msg: 'Recipe was deleted',
+                type: 'notError',
+              });
+              this.router.navigate(['/']);
+            },
+            (error) => {
+              console.log(error);
+              this.globals.notification.next({
+                msg: 'Recipe was not deleted',
+                type: 'error',
+              });
+            }
+          );
+      }
+    });
   }
 
   ngOnDestroy(): void {

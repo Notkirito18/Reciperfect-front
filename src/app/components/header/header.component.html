@@ -78,11 +78,6 @@
   <ng-template #smallLinks>
     <!--*Links area when not logged in  -->
     <div *ngIf="!loggedIn" class="col-3 sm-link-container">
-      <span class="link" [ngClass]="scrolled ? 'link-scroll' : ''"
-        >Explore</span
-      >
-    </div>
-    <div *ngIf="!loggedIn" class="col-3 sm-link-container">
       <span
         class="link"
         [ngClass]="scrolled ? 'link-scroll' : ''"
@@ -130,7 +125,7 @@
       <div mat-menu-item disabled class="mat-menu-item">
         <div class="sm-profile-pic">
           <img [src]="profilePic" alt="" />
-          <span> {{ user.username }} </span>
+          <span> {{ user?.username }} </span>
         </div>
       </div>
       <button mat-menu-item class="mat-menu-item" [routerLink]="'/profile'">

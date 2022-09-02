@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DeleteConfirmComponent } from 'src/app/components/delete-confirm/delete-confirm.component';
 import { LoginDialogComponent } from 'src/app/components/login-dialog/login-dialog.component';
 import { RateDialogComponent } from 'src/app/components/rate-dialog/rate-dialog.component';
-import { UserDialogComponent } from 'src/app/components/user-dialog/user-dialog.component';
-import { findCommonElement, median } from 'src/app/helpers';
+import { findCommonElement, median, writeIngredient } from 'src/app/helpers';
 import { Recipe, User } from 'src/app/models';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalsService } from 'src/app/services/globals.service';
@@ -21,11 +21,13 @@ export class RecipePageComponent implements OnInit, OnDestroy {
   constructor(
     private recipesService: RecipesService,
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     private usersService: UsersService,
     private globals: GlobalsService,
     private dialog: MatDialog
   ) {}
+  writeIngredient = writeIngredient;
   user$!: Subscription;
   user!: User;
   id!: string;
@@ -225,15 +227,33 @@ export class RecipePageComponent implements OnInit, OnDestroy {
       });
     }
   }
-  creatorClick() {
-    if (this.creatorUser) {
-      this.usersService.getUser(this.creatorUser?._id).subscribe((user) => {
-        this.dialog.open(UserDialogComponent, {
-          width: '400px',
-          data: { user },
-        });
-      });
-    }
+  onDelete() {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      width: '400px',
+      data: { msg: 'Are you sure you want to delete this Recipe ?' },
+    });
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data && data.confirm) {
+        this.recipesService
+          .deleteRecipe(this.id, this.user._token, this.user._id)
+          .subscribe(
+            (result: any) => {
+              this.globals.notification.next({
+                msg: 'Recipe was deleted',
+                type: 'notError',
+              });
+              this.router.navigate(['/']);
+            },
+            (error) => {
+              console.log(error);
+              this.globals.notification.next({
+                msg: 'Recipe was not deleted',
+                type: 'error',
+              });
+            }
+          );
+      }
+    });
   }
 
   ngOnDestroy(): void {

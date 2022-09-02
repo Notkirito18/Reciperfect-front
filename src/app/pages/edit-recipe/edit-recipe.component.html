@@ -179,7 +179,7 @@
                 </div>
               </ng-container>
             </div>
-            <div class="col-sm-2 col-10 field">
+            <div class="col-sm-2 col-11 field">
               <input
                 class="input"
                 style="padding: 11px 5px"
@@ -341,18 +341,28 @@
         {{ tag }}
       </span>
     </div>
-    <!--* public or private recipe / submit  -->
+    <!--* public or private recipe -->
+    <div class="input-label">
+      Private
+      <tooltip
+        message="Check the box if you want the recipe to be only seen by you"
+      ></tooltip>
+    </div>
+    <div class="private">
+      <mat-checkbox
+        class="mr-2"
+        disableRipple
+        formControlName="share"
+      ></mat-checkbox>
+      <span>Make this recipe private (only you can see it)</span>
+    </div>
+    <!--* Submit / delete  -->
     <div class="submit-section">
-      <div class="private">
-        <mat-checkbox
-          class="mr-2"
-          disableRipple
-          formControlName="share"
-        ></mat-checkbox>
-        <span>Make this recipe private (only you can see it)</span>
-      </div>
       <button type="submit" class="submit-btn" [disabled]="!editingForm.valid">
         Edit Recipe
+      </button>
+      <button type="button" (click)="onDelete()" class="delete-btn">
+        Delete Recipe
       </button>
     </div>
   </form>

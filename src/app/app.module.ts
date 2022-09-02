@@ -38,7 +38,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MyspaceComponent } from './pages/myspace/myspace.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FooterComponent } from './components/footer/footer.component';
-import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 
 @NgModule({
@@ -60,7 +59,6 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
     DeleteConfirmComponent,
     MyspaceComponent,
     FooterComponent,
-    UserDialogComponent,
     UserPageComponent,
   ],
   imports: [

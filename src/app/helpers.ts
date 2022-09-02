@@ -182,3 +182,23 @@ export function findCommonElement(array1: any[], array2: any[]) {
   // Return if no common element exist
   return false;
 }
+
+export function writeIngredient(
+  ingAmount: number,
+  ingUnit: string,
+  ingName: string
+): string {
+  if (ingAmount > 1) {
+    if (ingUnit == 'unit') {
+      return ingAmount + ' ' + ingName;
+    } else {
+      return ingAmount + ' ' + ingUnit + 's of ' + ingName;
+    }
+  } else {
+    if (ingUnit == 'unit') {
+      return ingAmount + ' ' + ingName;
+    } else {
+      return ingAmount + ' ' + ingUnit + ' of ' + ingName;
+    }
+  }
+}

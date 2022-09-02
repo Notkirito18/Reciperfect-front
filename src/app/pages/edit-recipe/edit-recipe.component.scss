@@ -71,7 +71,7 @@
   }
 
   .input,
-  .submit-btn {
+  .submit-btn, .delete-btn {
     display: block;
     padding: 11px 16px;
     border-radius: 3px;
@@ -134,34 +134,13 @@
     }
   }
 
-  .submit-btn {
-    background-color: var(--green);
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    width: 50%;
-    font-weight: 500;
-  }
 
-  .submit-btn:hover {
-    background-color: var(--lightGreen);
-  }
-
-  .submit-btn:disabled,
-  .submit-btn[disabled] {
-    opacity: 0.5;
-    cursor: unset;
-  }
-
-  .submit-btn:disabled:hover,
-  .submit-btn[disabled]:hover {
-    background-color: var(--green);
-  }
   //*tags
   .tags{
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    margin-bottom: 15px;
     .tag {
       font-size: 14px;
       font-weight: 500;
@@ -185,6 +164,62 @@
       color: white;
     }
   }
+
+  .private {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .submit-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+
+    .submit-btn {
+      background-color: var(--green);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      width: auto;
+      padding: 12px 35px;
+      font-weight: 500;
+      transition: all 200ms ease
+    }
+
+    .delete-btn {
+      border: 1px solid var(--red);
+      background-color: white;
+      color: var(--red);
+      font-size: 16px;
+      cursor: pointer;
+      width: auto;
+      padding: 12px 35px;
+      font-weight: 500;
+      transition: all 200ms ease
+    }
+
+    .submit-btn:hover {
+      background-color: var(--lightGreen);
+    }
+    .delete-btn:hover {
+      background-color: var(--red);
+      color: white;
+    }
+
+    .submit-btn:disabled,
+    .submit-btn[disabled] {
+      opacity: 0.5;
+      cursor: unset;
+    }
+
+    .submit-btn:disabled:hover,
+    .submit-btn[disabled]:hover {
+      background-color: var(--green);
+    }
+  }
+
 }
 
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
@@ -240,16 +275,6 @@
   cursor: unset;
 }
 
-.submit-section {
-  margin-top: 20px;
-
-  .private {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-}
 
 .input-label {
   font-size: 16px;
@@ -336,10 +361,8 @@
   .galery-container {
     min-height: 150px
   }
-}
-
-@media only screen and (max-width: 575px) {
-  .sm-marginFix {
-    right: -65px;
+  .submit-section {
+    flex-direction: row !important;
+    justify-content: space-around;
   }
 }

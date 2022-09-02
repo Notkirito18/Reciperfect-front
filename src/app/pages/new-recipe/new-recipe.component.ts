@@ -213,11 +213,11 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
       !formValue.share,
       this.userId,
       new Date(),
+      this.selectedTags,
       formValue.prepTime,
       formValue.cookTime,
       formValue.serving,
-      formValue.servingsYield,
-      this.selectedTags
+      formValue.servingsYield
     );
     this.addingRecipe = true;
 
@@ -242,6 +242,10 @@ export class NewRecipeComponent implements OnInit, OnDestroy {
           });
         }
       );
+  }
+  onReset(formDirective: FormGroupDirective) {
+    this.newRecForm.reset();
+    formDirective.resetForm();
   }
   // other unit
   otherUnitSelected(event: any, index: number) {

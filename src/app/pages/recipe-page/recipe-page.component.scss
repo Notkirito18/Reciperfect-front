@@ -5,16 +5,6 @@
     font-weight: bold;
     padding: 15px 0px;
   }
-  .by{
-    .creator{
-      font-weight: bold;
-    }
-    .creator:hover{
-      color: var(--green);
-      text-decoration: underline;
-      cursor: pointer;
-    }
-  }
   .sub-title{
     font-size: 32px;
     font-weight: bold;
@@ -97,6 +87,16 @@
         border: 2px solid black;
         color: white;
       }
+      .delete {
+        color: var(--red);
+        border: 2px solid var(--red);
+      }
+
+      .delete:hover {
+        background-color: var(--red);
+        border: 2px solid var(--red);
+        color: white;
+      }
   }
   carousel{
     height: 450px !important;
@@ -147,7 +147,15 @@
   }
 
 }
+.creator {
+  font-weight: bold;
+}
 
+.creator:hover {
+  color: var(--green);
+  text-decoration: underline;
+  cursor: pointer;
+}
 .loading{
   margin-top: 130px;
 }
