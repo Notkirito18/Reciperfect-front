@@ -27,7 +27,7 @@ export class AuthService {
   register(username: string, email: string, password: string) {
     return this.http
       .post(
-        environment.url + 'auth/register',
+        'auth/register',
         {
           username,
           email,
@@ -51,7 +51,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post(
-        environment.url + 'auth/login',
+        'auth/login',
         { email, password },
         { headers: { key: environment.serverKey }, observe: 'response' }
       )

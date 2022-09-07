@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  serverKey: 'rpA1v6ir4550',
 };

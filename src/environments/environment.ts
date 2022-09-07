@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   serverKey: 'rpA1v6ir4550',
-  url: 'http://localhost:5000/',
 };
 
 /*

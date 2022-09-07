@@ -12,7 +12,7 @@ export class UsersService {
 
   getUser(id: string) {
     return this.http
-      .get<{ user: User }>(environment.url + 'api/users/' + id, {
+      .get<{ user: User }>('api/users/' + id, {
         headers: {
           key: environment.serverKey,
         },
@@ -42,8 +42,8 @@ export class UsersService {
       return this.http
         .post(
           folderName
-            ? environment.url + 'api/users/editProfileImage/' + folderName
-            : environment.url + 'api/users/saveProfileImage',
+            ? 'api/users/editProfileImage/' + folderName
+            : 'api/users/saveProfileImage',
           formData,
           {
             headers: {
@@ -62,7 +62,7 @@ export class UsersService {
             };
             return this.http
               .patch<{ user: User }>(
-                environment.url + 'api/users/' + userObject._id,
+                'api/users/' + userObject._id,
                 userToSend,
                 {
                   headers: {
@@ -81,17 +81,13 @@ export class UsersService {
         );
     } else {
       return this.http
-        .patch<{ user: User }>(
-          environment.url + 'api/users/' + userObject._id,
-          userObject,
-          {
-            headers: {
-              key: environment.serverKey,
-              authToken: token,
-              userDataId: userDataId,
-            },
-          }
-        )
+        .patch<{ user: User }>('api/users/' + userObject._id, userObject, {
+          headers: {
+            key: environment.serverKey,
+            authToken: token,
+            userDataId: userDataId,
+          },
+        })
         .pipe(
           map((userObject) => {
             return userObject.user;

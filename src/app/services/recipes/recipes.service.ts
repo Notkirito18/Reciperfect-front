@@ -27,7 +27,7 @@ export class RecipesService {
     }
 
     return this.http
-      .post(environment.url + 'api/recipes/write/saveImage', formData, {
+      .post('api/recipes/write/saveImage', formData, {
         headers: {
           key: environment.serverKey,
           authToken: token,
@@ -42,17 +42,13 @@ export class RecipesService {
             imagesSrcs: imagesPaths,
           };
           return this.http
-            .post<{ recipe: any }>(
-              environment.url + 'api/recipes/write',
-              recipeToSend,
-              {
-                headers: {
-                  key: environment.serverKey,
-                  authToken: token,
-                  userDataId: userDataId,
-                },
-              }
-            )
+            .post<{ recipe: any }>('api/recipes/write', recipeToSend, {
+              headers: {
+                key: environment.serverKey,
+                authToken: token,
+                userDataId: userDataId,
+              },
+            })
             .pipe(
               map((recipeObject) => {
                 return recipeObject.recipe;
@@ -65,7 +61,7 @@ export class RecipesService {
   getRecipes(userId?: string) {
     return this.http
       .get<{ recipes: Recipe[] }>(
-        environment.url + 'api/recipe/read',
+        'api/recipe/read',
         userId
           ? {
               headers: {
@@ -89,7 +85,7 @@ export class RecipesService {
   getRecipe(id: string, userId?: string) {
     return this.http
       .get<{ recipe: any }>(
-        environment.url + 'api/recipe/read/' + id,
+        'api/recipe/read/' + id,
         userId
           ? {
               headers: {
@@ -111,7 +107,7 @@ export class RecipesService {
   }
   deleteImages(ids: string[], token: string, userDataId: string) {
     return this.http.post(
-      environment.url + 'api/recipes/write/deleteImages',
+      'api/recipes/write/deleteImages',
       { ids },
       {
         headers: {
@@ -132,17 +128,13 @@ export class RecipesService {
   ) {
     if (!folderName) {
       return this.http
-        .patch<{ recipe: any }>(
-          environment.url + 'api/recipes/write/' + id,
-          newRecipe,
-          {
-            headers: {
-              key: environment.serverKey,
-              authToken: token,
-              userDataId: userDataId,
-            },
-          }
-        )
+        .patch<{ recipe: any }>('api/recipes/write/' + id, newRecipe, {
+          headers: {
+            key: environment.serverKey,
+            authToken: token,
+            userDataId: userDataId,
+          },
+        })
         .pipe(
           map((recipeObject) => {
             return recipeObject.recipe;
@@ -158,17 +150,13 @@ export class RecipesService {
         );
       }
       return this.http
-        .post(
-          environment.url + 'api/recipes/write/saveImage/' + folderName,
-          formData,
-          {
-            headers: {
-              key: environment.serverKey,
-              authToken: token,
-              userDataId: userDataId,
-            },
-          }
-        )
+        .post('api/recipes/write/saveImage/' + folderName, formData, {
+          headers: {
+            key: environment.serverKey,
+            authToken: token,
+            userDataId: userDataId,
+          },
+        })
         .pipe(
           mergeMap((res: any) => {
             const imagesPaths = res.images.map((item: any) => item.url);
@@ -181,17 +169,13 @@ export class RecipesService {
                 }),
             };
             return this.http
-              .patch<{ recipe: any }>(
-                environment.url + 'api/recipes/write/' + id,
-                recipeToSend,
-                {
-                  headers: {
-                    key: environment.serverKey,
-                    authToken: token,
-                    userDataId: userDataId,
-                  },
-                }
-              )
+              .patch<{ recipe: any }>('api/recipes/write/' + id, recipeToSend, {
+                headers: {
+                  key: environment.serverKey,
+                  authToken: token,
+                  userDataId: userDataId,
+                },
+              })
               .pipe(
                 map((recipeObject) => {
                   return recipeObject.recipe;
@@ -203,7 +187,7 @@ export class RecipesService {
   }
 
   deleteRecipe(recipeId: string, token: string, userDataId: string) {
-    return this.http.delete(environment.url + 'api/recipes/write/' + recipeId, {
+    return this.http.delete('api/recipes/write/' + recipeId, {
       headers: {
         key: environment.serverKey,
         authToken: token,
